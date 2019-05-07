@@ -1,0 +1,8 @@
+README.md
+setup.py
+showkitty.py
+showkitty.egg-info/PKG-INFO
+showkitty.egg-info/SOURCES.txt
+showkitty.egg-info/dependency_links.txt
+showkitty.egg-info/entry_points.txt
+showkitty.egg-info/top_level.txt
