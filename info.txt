@@ -1,0 +1,3 @@
+https://geekflare.com/block-unwanted-requests/ (http block user)
+https://medium.com/@AgariInc/strategies-for-testing-async-code-in-python-c52163f2deab (asyncio testing)
+https://medium.com/ideas-at-igenius/testing-asyncio-python-code-with-pytest-a2f3628f82bc (asyncio testing)

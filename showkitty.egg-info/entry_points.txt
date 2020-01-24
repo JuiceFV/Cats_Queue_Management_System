@@ -1,3 +1,0 @@
-[console_scripts]
-start_app = showkitty
-

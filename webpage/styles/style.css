@@ -1,0 +1,208 @@
+html{
+	height: 80%;
+}
+body{
+	font-family: sans-serif;
+	height: 100%;
+}
+.header{
+	border-bottom: 2px solid lightgray;
+	display: flex;
+	align-items: center;
+	padding-bottom: 10px;
+	margin-bottom: 30px;
+}
+#logo{
+	width: 84px;
+	height: 84px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+}
+#logo:hover{
+	background-color: rgb(0,0,0,0.06);
+}
+#name{
+	color: #e60023;
+	margin-left: 38%;
+}
+.content{
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	height: 100%;
+}
+.left-sidebar{
+	width:44%;
+	height: 100%;
+	transition: width 0.5s, box-shadow 0.5s;
+}
+.right-sidebar{
+	width:44%;
+	height: 100%;
+	transition: width 0.5s, box-shadow 0.5s;
+}
+#side-name{
+	width: 90%;
+	text-align: center;
+	border-radius: 999px;
+	background-color: rgba(0, 0,0, 0.06);
+	margin: auto;
+	color:#333
+}
+.input-token{
+	width: 90%;
+	display: flex;
+	margin: auto;
+	justify-content: space-between;
+}
+.input-box{
+	border-radius: 8px;
+	background-color: #efefef;
+	width: 75%;
+}
+.left-sidebar input[name="token-input-field"]{
+	border:none;
+	color:#333;
+	width:96%;
+	height: 100%;
+	background-color: transparent;
+	outline: none;
+	margin-left: 2%;
+	font-size:16px;
+	font-weight:600;
+}
+.left-sidebar input[name="send-token-button"]{
+	width: 20%;
+	border:none;
+	color:rgb(255, 255, 255);
+	background-color: #e60023;
+	border-radius: 8px;
+	font-size:16px;
+	font-weight:600;
+	outline: none;
+}
+.token-buttons{
+	width: 90%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.get-token-button{
+	height: 15%;
+	padding: 15px;
+	border-radius: 999px;
+}
+.get-token-button:hover{
+	background-color: rgba(0, 0, 0, 0.089);
+}
+.get-token-button input{
+	border:none;
+	color:rgb(255, 255, 255);
+	background-color: #e60023;
+	border-radius: 999px;
+	font-size:28px;
+	font-weight:600;
+	outline: none;
+	width:100%;
+	height: 100%;
+ }
+ .get-token-interface{
+	margin-bottom: 45%; 
+	display: none;
+ }
+.choice-buttons{
+	display: flex;
+	justify-content: space-around;
+	width: 80%;
+	margin: auto;
+	height: 65%;
+}
+.yes-button{
+	width: 45%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 8px;
+	padding: 8px;
+}
+.yes-button:hover{
+	background-color: rgba(0, 0, 0, 0.089);
+	
+}
+.no-button{
+	width: 45%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 8px;
+	padding: 8px;
+}
+.no-button:hover{
+	background-color: rgba(0, 0, 0, 0.089);
+}
+.choice-buttons .yes-button input[type="button"]{
+	border:none;
+	color:rgb(255, 255, 255);
+   	background-color: #e60023;
+   	border-radius: 8px;
+   	font-size:28px;
+   	font-weight:600;
+	outline: none;
+	width: 100%;
+	height: 100%;
+ }
+ .choice-buttons .no-button input[type="button"]{
+	border:none;
+	color:rgb(255, 255, 255);
+   	background-color: #e60023;
+   	border-radius: 8px;
+   	font-size:28px;
+   	font-weight:600;
+	outline: none;
+	width: 100%;
+	height: 100%;
+ }
+ .token-field{
+	font-size: 80px;
+	font-weight:600;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	color: #333;
+	display: flex;
+ }
+ #copy-button:hover{
+	width: 28px;
+	height: 28px;
+ }
+ #copy-button{
+	 align-self: flex-end;
+ }
+ .back-to-menu-button input[type="button"]{
+	border:none;
+	color:rgb(255, 255, 255);
+   	background-color: #e60023;
+   	border-radius: 8px;
+   	font-size:28px;
+   	font-weight:600;
+	outline: none;
+	width: 100%;
+ }
+ .show-token-interface{
+	 height: 100%;
+	 display: none;
+ }
+ .back-to-menu-button{
+	 align-items: center;
+	 width: 60%;
+ }
+ .back-to-menu-button:hover{
+	 padding: 3px;
+	 background-color: rgba(0, 0, 0, 0.089);
+	 border-radius: 8px;
+ }
