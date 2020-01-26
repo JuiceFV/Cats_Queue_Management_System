@@ -1,0 +1,217 @@
+/*
+
+*/
+#content-bar{
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex: 1 1 auto;
+}
+
+/*
+
+*/
+.content-part{
+	display: flex;
+	width: 44%;
+	height: 90%;
+	flex-direction: column;
+	transition: width 0.5s, height 0.5s, box-shadow 0.5s;
+	align-items: center;
+}
+
+/*
+
+*/
+.part-title{
+	width: 90%;
+	text-align: center;
+	background-color: #e60023;
+	border-radius: 8px;
+	color: white;
+	margin-top: 10px;
+}
+
+/*==================LEFT PART (IMAGE PART)========================*/
+
+/*
+
+*/
+#check-token{
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+	height: 45px;
+	align-items: center;
+}
+
+/*
+
+*/
+#token-input-field{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	background-color: #efefef;
+	width: 75%;
+	height: 100%;
+}
+
+/*
+
+*/
+#token-check-button{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 20%;
+	height: 100%;
+	border-radius: 8px;
+	padding: 4px;
+}
+
+/*
+
+*/
+#token-check-button:hover{
+	background-color: rgba(0,0,0,0.16);
+}
+
+/*
+
+*/
+#token-input-field input{
+	border:none;
+	color:#333;
+	width:96%;
+	height: 100%;
+	background-color: transparent;
+	outline: none;
+	margin-left: 2%;
+	font-size:16px;
+	font-weight:600;
+}
+
+/*
+
+*/
+#token-check-button input{
+	border:none;
+	color:rgb(255, 255, 255);
+	background-color: #e60023;
+	border-radius: 8px;
+	font-size:16px;
+	font-weight:600;
+	outline: none;
+	height: 100%;
+	width: 100%;
+}
+
+/*==================RIGHT PART (TOKEN PART)========================*/
+
+#token-adjusting-part{
+	display: flex;
+	flex-flow: column;
+}
+#token-part{
+	display: flex;
+	width: 90%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding-bottom: 10px;
+	border-bottom: 2px solid lightgray;
+	flex: 0 1 auto;
+}
+
+/*
+
+*/
+#right-part-title{
+	width: 100%;
+}
+
+/*
+
+*/
+#get-token-part{
+	width: 100%;
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*
+
+*/
+#get-token-button{
+	width: 100%;
+	padding: 4px;
+	border-radius: 999px;
+}
+
+/*
+
+*/
+#get-token-button:hover{
+	background-color: rgba(0,0,0,0.16);
+}
+
+/*
+
+*/
+#get-token-button input{
+	width: 100%;
+	border:none;
+	color:rgb(255, 255, 255);
+	background-color: #e60023;
+	border-radius: 999px;
+	font-size:16px;
+	font-weight:600;
+	outline: none;
+	cursor: pointer;
+}
+
+/*
+
+*/
+#queue-tablet-part{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-flow: column;
+	flex: 1 1 auto;
+}
+
+/*
+
+*/
+#queue-title{
+	flex: 0 1 auto;
+}
+
+/*
+
+*/
+#token-queue{
+	width: 90%;
+	flex: 1 1 auto;
+	display: flex;
+	padding: 10px;
+}
+
+/*
+
+*/
+.queue-column{
+	Width: 25%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	flex: 1 1 auto;
+}

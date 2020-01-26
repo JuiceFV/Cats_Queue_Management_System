@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html>
  <head>
-   <title>Cat Queue Management System</title>
+   <title>Kitty Getter</title>
    <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link href="./styles/style.css" rel="stylesheet">
-   <script src="./scripts/jquery-3.4.1.min.js"></script>
+   <link href="./styles/common.css" rel="stylesheet">
+   <link href="./styles/header.css" rel="stylesheet">
+   <link href="./styles/content.css" rel="stylesheet">
    <script src="./scripts/script.js"></script>
  </head>
  <body>
-   <div class="header">
-    <a href="#"><div id="logo"><img src="./icons/github-logo.png" width="64" alt="Kitty Geter"></div></a>
-    <h1 id="name">Kitty Getter</h1>
-   </div>
-   <div class="content">
-    <div class="left-sidebar" onmouseover="activeSidebar('left', 'right');" onmouseout="unactiveSidebar('left', 'right');">
-      <div id="side-name"><h2>Get Kitty</h2></div>
-      <div class="input-token">
-        <div class="input-box"  style="height:40px">
-          <input type="text" name="token-input-field" placeholder="Token">
-        </div>
-        <input type="button" name="send-token-button" value="Get">
-      </div>
-      <div class="image-field">
-        
-      </div>
-    </div>
-     <div class="right-sidebar" onmouseover="activeSidebar('right', 'left');" onmouseout="unactiveSidebar('right', 'left');">
-       <div id="side-name"><h2>Get Token</h2></div>
-       <div class=token-buttons>
-        <div class="get-token-button">
-          <input type="button" value="Get Your Unique Token" onclick="getTokentInterfaceClick();">
-        </div>
-        <div class="get-token-interface">
-          <div>
-            <h2 style="color:#333; text-align: center">Are you sure you want to get a token?</h2>
-          </div>
-          <div class="choice-buttons">
-            <div class="yes-button">
-              <input type="button" value="Yes" onclick="tokenInterfaceYesButton();">
-            </div>
-            <div class="no-button">
-              <input type="button" value="No" onclick="tokenInterfaceNoButton();">
-            </div>
-          </div>
-        </div>
-        <div class="show-token-interface">
-          <div class="back-to-menu-button">
-            <input type="button" value="Back to menu" onclick="backToMenu();">
-          </div>
-          <div class="token-field">
-            <div id="token">
-              MP21
-            </div>
-            <img id="copy-button" alt="copy" src="./icons/paper.png" onclick="copyButton();">
-          </div>
-        </div>
-      </div>
-      <div class="queue">
-        <div id="side-name"><h2>Queue</h2></div>
-      </div>
-    </div>
-  </div>
-</div>
-</body> 
+	<div class="page">
+		<div id="header-bar">
+			<div id="logo-box">
+				<img id="logo" src="./icons/logo.png" alt="Kitty Getter Logo">
+			</div>
+			<div class="title-box">
+				<div class="title">
+					<h2>Kitty Getter</h2>
+				</div>
+			</div>
+		</div>
+		<div id="content-bar">
+			<div class="content-part" id="image-getter-part" onmouseover="activatePart('image-getter');" onmouseout="disactivatePart('image-getter');">
+				<div class="part-title">
+					<h2>Get Your Kitty</h2>
+				</div>
+				<div id="check-token">
+					<div id="token-input-field">
+						<input type="text" placeholder="Your Token">
+					</div>
+					<div id="token-check-button">
+						<input type="button" value="Get Image">
+					</div>
+				</div>
+				<div id="image">
+					<img src="">
+				</div>
+			</div>
+			<div class="content-part" id="token-adjusting-part" onmouseover="activatePart('token-adjusting');" onmouseout="disactivatePart('token-adjusting');">
+				<div id="token-part">
+					<div class="part-title" id="right-part-title">
+						<h2>Get Your Token</h2>
+					</div>
+					<div id="get-token-part">
+						<div id="get-token-button" >
+							<input type="button" value="Get Token">
+						</div>
+					</div>
+				</div>
+				<div id="queue-tablet-part">
+					<div class="part-title" id="queue-title">
+						<h2>Token's Queue</h2>
+					</div>
+					<div id="token-queue">
+						<div class="queue-column" id="first-column">
+						</div>
+						<div class="queue-column" id="second-column">
+						</div>
+						<div class="queue-column" id="third-column">
+						</div>
+						<div class="queue-column" id="forth-column">
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+ </body> 
 </html>
