@@ -1,0 +1,73 @@
+/*
+This style-file conatains style for the header.
+The header contains logo-image and service-name ("Kitty Getter")
+*/
+
+/*
+1) display: flex; - as I said: "display option, its makes work more comfortable."
+2) justify-content: space-between; - makes space between elements are same.
+3) align-items: center; - centralizing content (along vertical axis)
+4) padding-bottom: 10px; - free space form up.
+5) border-bottom: 2px solid lightgray; - border under header
+6) flex: 0 1 auto; - define first main element in the document
+*/
+#header-bar{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 10px;
+	border-bottom: 2px solid lightgray;
+	flex: 0 1 auto;
+}
+
+/*
+1) display: flex; - as I said: "display option, its makes work more comfortable."
+2) width: 84px; } Makes the box for the logo it will highlighted when the mouse 
+3) height: 84px;} will within logo image.
+4) justify-content: center; - centralizeslogo at the center of this box (horizontal axis)
+5) align-items: center; - also centralizes logo at the center of this box (vertical axis)
+6) margin: 10px; 	  } Makes some free space from the op, left, right.
+7) margin-bottom: 0px;} 
+8) border-radius: 50%; - Makes box a circle
+*/
+#logo-box{
+	display: flex;
+	width: 84px;
+	height: 84px;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+	margin-bottom: 0px;
+	border-radius: 50%;
+}
+
+/*
+1) background-color: rgba(0,0,0,0.08); - the color of the highlighting
+*/
+#logo-box:hover{
+	background-color: rgba(0,0,0,0.08);
+}
+
+/*
+1) margin-right: 45%; - title margin from right
+2) display: flex; - as I said: "display option, its makes work more comfortable."
+3) justify-content: flex-start; move the text to the start of the title-box
+4) align-items: center; - centralizes content in the box
+5) margin-top: 10px; - centralizes content, due to we had an padding for the border
+*/
+#header-bar .title-box{
+	margin-right: 45%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: 10px;
+}
+
+/*
+1) color: #e60023; - makes color of the title red
+2) font-size: 20px; - augments texts size
+*/
+#header-bar .title-box .title{
+	color: #e60023;
+	font-size: 20px;
+}
