@@ -2,3 +2,5 @@ Pipfile
 Pipfile.lock
 .idea
 env
+application/__pycache__
+application/views/__pychache__
