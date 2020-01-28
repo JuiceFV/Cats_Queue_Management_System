@@ -1,4 +1,3 @@
-import aiohttp
 from aiohttp import web
 from .views import frontend
 
@@ -10,5 +9,3 @@ def setup_rotes(app):
                         web.static('/static', 'application/static', name='static', show_index=True)
                     ]
                    )
-    app['static_root_url'] = '/static'
-
