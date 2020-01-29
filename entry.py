@@ -3,18 +3,26 @@ import asyncio
 from aiohttp import web
 from application import create_app
 
+
+# Makes an effort to import the uvloop for the performance augment.
+# Windows doesn't maintain the uvloop, so far. Therefore we throws the  Exception.
 try:
     import uvloop
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 except ImportError:
     print("Uvloop library doesn't available.")
 
+
+# Sets the argument parser up
+# 1) --host HOST which will be listened
+# 2) --port PORT to accept connection
 parser = argparse.ArgumentParser(description="Kitty Getter Project")
 parser.add_argument('--host', help="Host to listen", default='0.0.0.0')
 parser.add_argument('--port', help="Port to accept connection", default=8080)
-
 args = parser.parse_args()
 
+# Creates an application.
+# The function create_app() is located at app.py
 app = create_app()
 
 if __name__ == '__main__':
