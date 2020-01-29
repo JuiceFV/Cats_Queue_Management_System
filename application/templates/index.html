@@ -25,14 +25,14 @@
 				<div class="part-title">
 					<h2>Get Your Kitty</h2>
 				</div>
-				<div id="check-token">
+				<form id="check-token" method="post" action="/kitty">
 					<div id="token-input-field">
-						<input type="text" placeholder="Your Token">
+						<input type="text" placeholder="Your Token" name="token">
 					</div>
 					<div id="token-check-button">
-						<input type="button" value="Get Image">
+						<input type="submit" value="Get Image">
 					</div>
-				</div>
+				</form>
 				<div id="image">
 					<img src="">
 				</div>
