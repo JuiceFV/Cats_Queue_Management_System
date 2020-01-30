@@ -1,0 +1,11 @@
+# host -
+# user -
+# password -
+# port -
+# database -
+database_config:
+  host: localhost
+  user: postgres
+  password: JPYh42JS
+  port: 5432
+  database: queue
