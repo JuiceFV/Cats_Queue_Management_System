@@ -1,19 +1,20 @@
 from aiohttp_jinja2 import template
 from aiohttp import web
-from aiohttp_session import get_session
-from datetime import datetime
+from ..QMS.tokenqueue import Token
+from ..database import base
 
 
 class Index(web.View):
+    """Class which handles index.html
 
+
+    """
     @template('index.html')
     async def get(self):
         return {}
 
 
-# class Kitty(web.View):
-#
-#     async def post(self):
-#         token = await self.post()
-#         print(token['token'])
-#         return web.HTTPFound('/')
+class TokenHandler(web.View):
+
+    async def get(self):
+        pass
