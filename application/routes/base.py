@@ -7,6 +7,6 @@ def setup_routes(app):
                     [
                         web.get('/', frontend.Index.get),
                         web.static('/static', 'application/static', name='static', show_index=True),
-                        # web.post('/kitty', frontend.Kitty.post)
+                        web.get('/get-token', frontend.TokenHandler.get)
                     ]
                    )
