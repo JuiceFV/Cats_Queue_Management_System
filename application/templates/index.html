@@ -25,7 +25,7 @@
 				<div class="part-title">
 					<h2>Get Your Kitty</h2>
 				</div>
-				<form id="check-token" method="post" action="/kitty">
+				<form id="check-token" method="post" action="/post-token">
 					<div id="token-input-field">
 						<input type="text" placeholder="Your Token" name="token">
 					</div>
@@ -42,11 +42,11 @@
 					<div class="part-title" id="right-part-title">
 						<h2>Get Your Token</h2>
 					</div>
-					<div id="get-token-part">
+					<form id="get-token-part" method="get" action="/get-token">
 						<div id="get-token-button" >
-							<input type="button" value="Get Token">
+							<input type="submit" value="Get Token">
 						</div>
-					</div>
+					</form>
 				</div>
 				<div id="queue-tablet-part">
 					<div class="part-title" id="queue-title">
