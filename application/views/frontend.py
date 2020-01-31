@@ -1,6 +1,5 @@
 from aiohttp_jinja2 import template
 from aiohttp import web
-from ..QMS.tokenqueue import Token
 from ..database import base
 
 
@@ -14,7 +13,16 @@ class Index(web.View):
         return {}
 
 
-class TokenHandler(web.View):
+class Token(web.View):
+
+    async def post(self):
+        pass
 
     async def get(self):
-        pass
+        data = {'token': self.app['new_token'].generate_new_token()}
+        """ Add token into database
+        
+        ...
+        
+        """
+        return web.json_response(data)
