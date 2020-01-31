@@ -1,4 +1,4 @@
-class Token:
+class TokenGenerator:
     def __init__(self):
         self.token = None
 
