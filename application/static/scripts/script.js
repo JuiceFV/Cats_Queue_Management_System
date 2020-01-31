@@ -13,3 +13,19 @@ function disactivatePart(part){
 	activePart.style.height = "90%";
 	activePart.style.boxShadow = "none";
 }
+
+$(document).ready(function () {
+	$('form').on('submit', function (event) {
+		$.ajax({
+			type: 'get',
+			url: '/get-token',
+			dataType: 'json'
+		}).done(function (data) {
+			$('#token-part').hide();
+			$('#queue-tablet-part').hide();
+			$('#token').text(data.token);
+			$('#show-token').css('display', 'flex');
+		});
+		event.preventDefault();
+	});
+})

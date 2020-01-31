@@ -115,6 +115,7 @@
 #token-adjusting-part{
 	display: flex;
 	flex-flow: column;
+	justify-content: center;
 }
 #token-part{
 	display: flex;
@@ -214,4 +215,32 @@
 	margin: 0;
 	padding: 0;
 	flex: 1 1 auto;
+}
+
+#show-token{
+	width: 100%;
+	font-family: sans-serif;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	color: #333;
+	justify-self: center;
+}
+
+/*
+
+*/
+#token{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 500%;
+}
+
+/*
+
+*/
+#copy-button{
+	align-self: flex-end;	
 }

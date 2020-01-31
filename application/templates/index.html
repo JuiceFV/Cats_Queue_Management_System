@@ -6,6 +6,7 @@
    <link href="{{static('styles/common.css')}}" rel="stylesheet">
    <link href="{{static('styles/header.css')}}" rel="stylesheet">
    <link href="{{static('styles/content.css')}}" rel="stylesheet">
+   <script src="{{static('scripts/jquery-3.4.1.min.js')}}"></script>
    <script src="{{static('scripts/script.js')}}"></script>
  </head>
  <body>
@@ -27,7 +28,7 @@
 				</div>
 				<form id="check-token" method="post" action="/post-token">
 					<div id="token-input-field">
-						<input type="text" placeholder="Your Token" name="token">
+						<input type="text" placeholder="Your Token" name="token" pattern="[A-Z]{2}[\d]{2}">
 					</div>
 					<div id="token-check-button">
 						<input type="submit" value="Get Image">
@@ -38,17 +39,17 @@
 				</div>
 			</div>
 			<div class="content-part" id="token-adjusting-part" onmouseover="activatePart('token-adjusting');" onmouseout="disactivatePart('token-adjusting');">
-				<div id="token-part">
+				<div id="token-part" style="display: flex;">
 					<div class="part-title" id="right-part-title">
 						<h2>Get Your Token</h2>
 					</div>
 					<form id="get-token-part" method="get" action="/get-token">
-						<div id="get-token-button" >
+						<div id="get-token-button">
 							<input type="submit" value="Get Token">
 						</div>
 					</form>
 				</div>
-				<div id="queue-tablet-part">
+				<div id="queue-tablet-part" style="display: flex;">
 					<div class="part-title" id="queue-title">
 						<h2>Token's Queue</h2>
 					</div>
@@ -61,6 +62,12 @@
 						</div>
 						<div class="queue-column" id="forth-column">
 						</div>
+					</div>
+				</div>
+				<div id="show-token" style="display: none;">
+					<div id="token"></div>
+					<div id="copy-button">
+						<img src="{{static('icons/coppy-button.png')}}">
 					</div>
 				</div>
 			</div> 
