@@ -1,4 +1,5 @@
 from aiohttp import web
+import logging
 import jinja2
 import aiohttp_jinja2
 from .routes.base import setup_routes
@@ -7,6 +8,7 @@ from aiohttp_session import setup
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from .database.base import on_start, on_shutdown
 import base64
+from .QMS.tokengenerator import TokenGenerator
 
 
 async def create_app(config: dict):
@@ -27,6 +29,9 @@ async def create_app(config: dict):
     app = web.Application()
 
     app['config'] = config
+    app['new_token'] = TokenGenerator()
+    # Adding logging
+    logging.basicConfig(level=logging.DEBUG)
 
     fernet_key = fernet.Fernet.generate_key()
     secrete_key = base64.urlsafe_b64decode(fernet_key)
