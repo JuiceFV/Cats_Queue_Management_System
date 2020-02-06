@@ -8,4 +8,5 @@ database_config:
   user: postgres
   password: JPYh42JS
   port: 5432
-  database: queue
+  database: CatsQMS
+

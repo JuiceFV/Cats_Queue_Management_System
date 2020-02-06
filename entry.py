@@ -1,8 +1,27 @@
+"""The "entry.py" contains the basic functions which runs the configured application.
+
+Import packages:
+ayncio -- standard package for the async programming since python3.4
+argparse -- package for the arguments parsing from the cmd/terminal <pip install pycparser>
+aiohttp -- package for the async web-programming <pip install aiohttp>
+application.create_app -- the create_app() function is located at application/app.py. It's creates the configured app.
+application.settings.load_config -- the load_config() function is handles the configuration files.
+
+Exceptions:
+ImportError -- Tries to import the uvloop. We're make an effort due to uvloop works only with Unix.
+
+Sets the parser of the arguments:
+1) --host -- Host to listen
+2) --port -- Port to accept connection
+3) --config -- Path to configuration file
+
+Creates the application with set routes.
+
+Runs the application.
+
 """
-asyncio - standard package for async programming since python3.4
-argparse - package for the parsing arguments from cmd/terminal
-aiohttp - package for the async web-programming <pip install aiohttp>
-"""
+
+
 import asyncio
 import argparse
 from aiohttp import web
@@ -29,7 +48,7 @@ parser.add_argument('--port', help="Port to accept connection", default=8080)
 parser.add_argument('-c', '--config', type=argparse.FileType('r'), help="Path to configuration file")
 args = parser.parse_args()
 
-# Creates an application.
+# Creates an application with already set configuration and routes.
 # The function create_app() is located at app.py
 app = create_app(config=load_config(args.config))
 

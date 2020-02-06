@@ -217,15 +217,22 @@
 	flex: 1 1 auto;
 }
 
+#show-token-content{
+	display: none;
+	flex-flow: column;
+	height: 100%;
+	width: 100%;
+}
+
 #show-token{
 	width: 100%;
 	font-family: sans-serif;
-	display: none;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-weight: 600;
 	color: #333;
-	justify-self: center;
+	flex: 1 1 auto;
 }
 
 /*
@@ -243,4 +250,31 @@
 */
 #copy-button{
 	align-self: flex-end;	
+}
+
+#return-button{
+	flex: 0 1 auto;
+}
+
+#show-token-field{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#return-button-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	margin-top: 8px;
+	margin-left: 8px;
+	border-radius: 50%;
+	background-color: transparent;
+}
+
+#return-button-box:hover{
+	background-color: rgba(0,0,0,0.16);
 }

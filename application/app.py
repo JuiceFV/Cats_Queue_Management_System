@@ -1,18 +1,42 @@
-from aiohttp import web
-import logging
+"""Here is placed the function which configures an application.
+
+Import packages:
+jinja2 --
+bas64 --
+logging --
+aiohttp_jinja2 --
+aiohttp.web --
+cryptography.fernet --
+aiohttp_session.setup --
+.routes.base.setup_routes --
+.QMS.tokengenerator.TokenGenerator --
+.database.base.on_start/on_shutdown --
+aiohttp_session.cookie_storage.EncryptedCookieStorage --
+
+Functions:
+create_app(config: dict) --
+
+"""
+
+
 import jinja2
-import aiohttp_jinja2
-from .routes.base import setup_routes
-from cryptography import fernet
-from aiohttp_session import setup
-from aiohttp_session.cookie_storage import EncryptedCookieStorage
-from .database.base import on_start, on_shutdown
 import base64
+import logging
+import aiohttp_jinja2
+from aiohttp import web
+from cryptography import fernet
+from .routes import setup_routes
+from aiohttp_session import setup
 from .QMS.tokengenerator import TokenGenerator
+from .database.base import on_start, on_shutdown
+from aiohttp_session.cookie_storage import EncryptedCookieStorage
 
 
 async def create_app(config: dict):
     """Creates an application with routes and returns it.
+
+    Keywords arguments:
+    config:dict -- the configuration passed as argument or default configuration at "application" - directory.
 
     At this function:
     1) Creates an application.
@@ -50,4 +74,3 @@ async def create_app(config: dict):
     app.on_cleanup.append(on_shutdown)
 
     return app
-

@@ -13,7 +13,9 @@
 	<div class="page">
 		<div id="header-bar">
 			<div id="logo-box">
-				<img id="logo" src="{{static('icons/logo.png')}}" alt="Kitty Getter Logo">
+				<a href="https://github.com/JuiceFV/Cats_Queue_Management_System" target="_blank">
+					<img id="logo" src="{{static('icons/logo.png')}}" alt="Kitty Getter Logo">
+				</a>
 			</div>
 			<div class="title-box">
 				<div class="title">
@@ -28,14 +30,14 @@
 				</div>
 				<form id="check-token" method="post" action="/post-token">
 					<div id="token-input-field">
-						<input type="text" placeholder="Your Token" name="token" pattern="[A-Z]{2}[\d]{2}">
+						<input type="text" placeholder="Your Token" name="token-field" pattern="[A-Z]{1}[\d]{2}">
 					</div>
 					<div id="token-check-button">
 						<input type="submit" value="Get Image">
 					</div>
 				</form>
-				<div id="image">
-					<img src="">
+				<div id="image-box">
+					<img id="image" src="">
 				</div>
 			</div>
 			<div class="content-part" id="token-adjusting-part" onmouseover="activatePart('token-adjusting');" onmouseout="disactivatePart('token-adjusting');">
@@ -64,10 +66,19 @@
 						</div>
 					</div>
 				</div>
-				<div id="show-token" style="display: none;">
-					<div id="token"></div>
-					<div id="copy-button">
-						<img src="{{static('icons/coppy-button.png')}}">
+				<div id="show-token-content" style="display: none;">
+					<div id="return-button">
+						<div id="return-button-box" onclick="returnBack();">
+							<img src="{{static('icons/back-arrow.png')}}">
+						</div>
+					</div>
+					<div id="show-token">
+						<div id="show-token-field">
+							<div id="token"></div>
+							<div id="copy-button" onclick="copyButton();">
+								<img src="{{static('icons/coppy-button.png')}}">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div> 
