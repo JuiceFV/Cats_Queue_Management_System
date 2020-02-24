@@ -25,10 +25,11 @@ import logging
 import aiohttp_jinja2
 from aiohttp import web
 from cryptography import fernet
+from .QMS import TokenGenerator
 from .routes import setup_routes
 from aiohttp_session import setup
-from .QMS.tokengenerator import TokenGenerator
-from .database.base import on_start, on_shutdown
+from .middlewares import setup_middlewares
+from .database import on_start, on_shutdown
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 
 
@@ -70,7 +71,10 @@ async def create_app(config: dict):
 
     setup_routes(app)
 
+    setup_middlewares(app)
+
     app.on_startup.append(on_start)
+    # ADD close remains tasks on_cleanup
     app.on_cleanup.append(on_shutdown)
 
     return app

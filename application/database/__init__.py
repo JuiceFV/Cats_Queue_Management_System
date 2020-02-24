@@ -1,3 +1,3 @@
-from .base import on_start, insert_token_into_db, on_shutdown
+from .base import on_start, insert_token_into_db, on_shutdown, db_empty
 
-__all__ = ('on_start', 'insert_token_into_db', 'on_shutdown')
+__all__ = ('on_start', 'insert_token_into_db', 'on_shutdown', 'db_empty',)

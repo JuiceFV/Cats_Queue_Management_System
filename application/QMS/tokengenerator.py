@@ -2,6 +2,8 @@
 
 
 """
+
+
 class TokenGenerator:
     """The token-generator class generates an unique token
 
@@ -59,3 +61,16 @@ class TokenGenerator:
 
         """
         self.tokens_ready_to_present.append(list(token))
+
+
+def is_token(anticipated_token):
+    if len(anticipated_token) == 3:
+        if anticipated_token[0].isalpha() and \
+           anticipated_token[0].isupper() and \
+           anticipated_token[1].isdigit() and \
+           anticipated_token[2].isdigit():
+            return True
+        else:
+            return False
+    else:
+        return False

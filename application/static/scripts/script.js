@@ -55,16 +55,23 @@ $(document).ready(function () {
 		});
 		event.preventDefault();
 	});
-	// #tf - input' id
-	// $('#check-token').on('submit', function (event) {
-	// 	$.ajax({
-	// 		type: 'post',
-	// 		url: '/post-token',
-	// 		data: $('#tf').serialize(),
-	// 		dataType: 'json'
-	// 	}).done(function (data) {
-	// 		$('#image').attr('src', 'https://cdn2.thecatapi.com/images/MTk1NjcyNg.jpg');
-	// 	});
-	// 	event.preventDefault();
-	// });
+	$('#check-token').on('submit', function (event) {
+		$.ajax({
+			type: 'post',
+			url: '/post-token',
+			data: $('input').serialize(),
+			dataType: 'json'
+		}).done(function (data) {
+			if (data.status === 'success') {
+				$('#image').attr('src', data.image_url);
+			}else if (data.status === 'wrong_turn'){
+				alert("It's not your turn");
+			}else if (data.status === 'cheater'){
+				alert("Cheating");
+			}else{
+				alert("There are no any tokens");
+			}
+		});
+		event.preventDefault();
+	});
 })

@@ -1,5 +1,5 @@
-"""
 
+"""
 """
 import asyncio
 import asyncpgsa
@@ -17,5 +17,6 @@ async def start_delete_delay(app, delay):
             id_after_sleep = await conn.fetchval(query, column=0)
             if id_before_sleep == id_after_sleep:
                 query = delete(db.tokens).where(db.tokens.c.id == id_before_sleep)
-                await conn.fetchrow(query)
-                asyncio.gather(start_delete_delay(app, delay))
+                if await conn.fetch(text("SELECT True FROM tokens LIMIT(1)"))
+                    await conn.fetchrow(query)
+                    asyncio.gather(start_delete_delay(app, delay))
