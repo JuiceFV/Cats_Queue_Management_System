@@ -57,7 +57,6 @@ class Token(web.View):
                 # If user used his/her/its token until the out of the time I want to close the task of the time counting
                 # Therefore I using the function of creating the task placed at
                 # ../application/concurent/taskconfigurator.py
-                # TODO cancel error w/ many tokens
                 if not await base.db_empty(self.app):
                     print("""
                                 The timer for the non-first token begins\n
@@ -93,6 +92,7 @@ class Token(web.View):
         db_emptiness = await base.db_empty(self.app)
         token = self.app['new_token'].generate_new_token()
         await base.insert_token_into_db(self.app, token)
+
         # Check is there the tokens needed to be popped.
         if db_emptiness:
             print("""

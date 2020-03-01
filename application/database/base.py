@@ -1,3 +1,6 @@
+"""
+
+"""
 import asyncpgsa
 from .db import tokens
 from sqlalchemy import (
@@ -8,10 +11,7 @@ from sqlalchemy import (
 async def db_empty(app):
     async with app['db'].acquire() as conn:
         query = text("SELECT True FROM tokens LIMIT(1)")
-        if await conn.fetch(query):
-            return False
-        else:
-            return True
+        return False if await conn.fetch(query) else True
 
 
 async def on_start(app):
