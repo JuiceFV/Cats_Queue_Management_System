@@ -10,7 +10,6 @@ class AppTestCases(AioHTTPTestCase):
 
     async def get_application(self):
         app = await create_app(config=load_config())
-        app.router.add_static('/static', '../application/static', name='static', show_index=True)
         return app
 
     @unittest_run_loop
@@ -18,3 +17,7 @@ class AppTestCases(AioHTTPTestCase):
         resp = await self.client.request("GET", "/")
         assert resp.status == 200
 
+    @unittest_run_loop
+    async def test_get_token(self):
+        resp = await self.client.request("GET", "/get-token")
+        assert resp.status == 200

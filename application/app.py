@@ -55,8 +55,10 @@ async def create_app(config: dict):
 
     app['config'] = config
     app['new_token'] = TokenGenerator()
+
     # Adding logging
-    logging.basicConfig(level=logging.DEBUG)
+    if app['config']['run_type'] != 'release':
+        logging.basicConfig(level=logging.DEBUG)
 
     fernet_key = fernet.Fernet.generate_key()
     secrete_key = base64.urlsafe_b64decode(fernet_key)

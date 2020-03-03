@@ -10,3 +10,5 @@ database_config:
   port: 5432
   database: CatsQMS
 
+run_type: debug
+
