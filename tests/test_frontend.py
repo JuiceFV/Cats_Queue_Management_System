@@ -1,7 +1,5 @@
-
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
-from aiohttp import web
-from application.views.frontend import Index
+
 from application.app import create_app
 from application.settings import load_config
 
@@ -21,3 +19,5 @@ class AppTestCases(AioHTTPTestCase):
     async def test_get_token(self):
         resp = await self.client.request("GET", "/get-token")
         assert resp.status == 200
+        resp = await resp.json()
+        self.assertEqual(resp['token'], 'A00', msg="Received correct data")

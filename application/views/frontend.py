@@ -59,8 +59,8 @@ class Token(web.View):
                 # ../application/concurent/taskconfigurator.py
                 if not await base.db_empty(self.app):
                     print("""
-                                The timer for the non-first token begins\n
-                                task = make_task(start_delete_delay, self.app, 35)\n
+                                The timer for the non-first token begins
+                                task = make_task(start_delete_delay, self.app, 35)
                                 asyncio.gather(task)
                                 """)
 
@@ -96,8 +96,8 @@ class Token(web.View):
         # Check is there the tokens needed to be popped.
         if db_emptiness:
             print("""
-            The timer for the first token begins\n
-            task = make_task(start_delete_delay, self.app, 35)\n
+            The timer for the first token begins
+            task = make_task(start_delete_delay, self.app, 35)
             asyncio.gather(task)
             """)
         return web.json_response({'token': token})

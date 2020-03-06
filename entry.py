@@ -28,7 +28,6 @@ from aiohttp import web
 from application import create_app
 from application.settings import load_config
 
-
 # Makes an effort to import the uvloop for the performance augment.
 # Windows doesn't maintain the uvloop, so far. Therefore we throws the  Exception.
 try:

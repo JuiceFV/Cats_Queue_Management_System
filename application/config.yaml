@@ -1,8 +1,12 @@
-# host -
-# user -
-# password -
-# port -
-# database -
+# host - the host where a database is located. If you run the application on your own PC set it as 'localhost'
+# user - An user of the database. The default user is the 'postrgres'
+# password - A password set for the database.
+# port - listening port where database is located. You was setting it when you installed the Postgresql
+# database - A database name. ~psql> create_db <name>
+# run_type - test/debug/release.
+#     test - This method changes the path to the static files in the application/routes/base.py
+#    debug - Reclaims the path to the static file
+#  release - removes debug logs
 database_config:
   host: localhost
   user: postgres
@@ -10,5 +14,5 @@ database_config:
   port: 5432
   database: CatsQMS
 
-run_type: debug
+run_type: test
 

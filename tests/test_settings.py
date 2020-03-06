@@ -1,4 +1,5 @@
 import unittest
+
 from application.settings import load_config
 
 
