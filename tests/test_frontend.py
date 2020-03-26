@@ -1,4 +1,4 @@
-from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
+from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop, make_mocked_request
 
 from application.app import create_app
 from application.settings import load_config
@@ -21,3 +21,11 @@ class AppTestCases(AioHTTPTestCase):
         assert resp.status == 200
         resp = await resp.json()
         self.assertEqual(resp['token'], 'A00', msg="Received correct data")
+
+    @unittest_run_loop
+    async def test_success_post_token(self):
+        resp = await self.client.request("GET", "/get-token")
+        if resp.status == 200:
+            resp = await self.client.request("POST", "/post-token", data={'token-field': 'A00'})
+            result = await resp.json()
+            self.assertEqual(result['status'], 'success')
