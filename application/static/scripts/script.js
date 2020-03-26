@@ -64,6 +64,7 @@ $(document).ready(function () {
 		}).done(function (data) {
 			if (data.status === 'success') {
 				$('#image').attr('src', data.image_url);
+				$('#image-box').css('display', 'flex');
 			}else if (data.status === 'wrong_turn'){
 				alert("It's not your turn");
 			}else if (data.status === 'cheater'){
