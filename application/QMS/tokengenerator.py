@@ -12,6 +12,7 @@ class TokenGenerator:
     prepare_used_token -- prepares already used token for the reuse.
 
     """
+
     def __init__(self):
         """Constructor for the token-generator.
 
@@ -60,5 +61,6 @@ class TokenGenerator:
         Append the token as a list into the another list "ready to present"
 
         """
-        # TODO make the priority queue ['A00' -> 'A01' ...] doesn't matter how do the shove them
+        # TODO I really do not like the sort()
         self.tokens_ready_to_present.append(list(token))
+        self.tokens_ready_to_present.sort()

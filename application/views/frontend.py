@@ -6,6 +6,7 @@ from aiohttp import web
 from ..database import base
 import asyncio
 from ..image_processing.img_handler import get_image_url
+from ..concurrency import make_task, start_delete_delay, get_previous_task
 
 
 class Index(web.View):
@@ -44,10 +45,9 @@ class Token(web.View):
             # First case, whether the needed toke is first one?
             if token_availability and token_accuracy:
 
-                # TODO Close tasks
+                # How do I close a task? Follow link below:
                 # https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view
-                # if closing_task := get_task():
-                #     closing_task.cancel()
+                get_previous_task().cancel()
 
                 # If the token is first then we shall to prepare it for the reuse.
                 # The prepare_used_token() is placed at ../application/QMS/tokengenerator.py
@@ -58,27 +58,15 @@ class Token(web.View):
                 # Therefore I using the function of creating the task placed at
                 # ../application/concurent/taskconfigurator.py
                 if not await base.db_empty(self.app):
-                    print("""
-                                The timer for the non-first token begins
-                                task = make_task(start_delete_delay, self.app, 35)
-                                asyncio.gather(task)
-                                """)
+                    task = make_task(start_delete_delay, self.app, 60)
+                    asyncio.gather(task)
 
-                """
-                Some code ...
-                """
                 img_url = get_image_url()
                 response.update({'status': 'success'})
                 response.update({'image_url': img_url})
             elif token_availability:
-                """
-                Some code ...
-                """
                 response.update({'status': 'wrong_turn'})
             else:
-                """
-                Some code ...
-                """
                 response.update({'status': 'cheater'})
         else:
             response.update({'status': 'db_empty'})
@@ -95,9 +83,7 @@ class Token(web.View):
 
         # Check is there the tokens needed to be popped.
         if db_emptiness:
-            print("""
-            The timer for the first token begins
-            task = make_task(start_delete_delay, self.app, 35)
+            task = make_task(start_delete_delay, self.app, 60)
             asyncio.gather(task)
-            """)
+
         return web.json_response({'token': token})
