@@ -29,11 +29,7 @@ class TestQueryManagementSystem(unittest.TestCase):
         self.t.prepare_used_token('A02')
         self.t.prepare_used_token('A03')
         self.t.prepare_used_token('A00')
+        self.assertEqual(self.t.generate_new_token(), 'A00')
         self.assertEqual(self.t.generate_new_token(), 'A01')
         self.assertEqual(self.t.generate_new_token(), 'A02')
         self.assertEqual(self.t.generate_new_token(), 'A03')
-        self.assertEqual(self.t.generate_new_token(), 'A00')
-
-
-
-
