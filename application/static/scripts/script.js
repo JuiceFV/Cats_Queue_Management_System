@@ -41,6 +41,7 @@ function copyButton(){
 	}
 }
 
+
 $(document).ready(function () {
 	$('#get-token-part').on('submit', function (event) {
 		$.ajax({
