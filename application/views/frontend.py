@@ -24,7 +24,12 @@ class Token(web.View):
 
     async def post(self):
         """Token processing
-
+         Within this function we handle a token. We check a token for the accuracy.
+         There are 4 options:
+         1) Token is integrally proper and we return an image (image url)
+         2) Such token exists but it's not at first position then we return error with appropriating status
+         3) Such token doesn't exist hence return cheating-error
+         4) Data base is empty. This status was created for my own purposes, it's 3d option indeed.
         """
         # Receive the data from the request
         post_data = await self.post()
@@ -56,18 +61,25 @@ class Token(web.View):
                 # Start the timer for the next token
                 # If user used his/her/its token until the out of the time I want to close the task of the time counting
                 # Therefore I using the function of creating the task placed at
-                # ../application/concurent/taskconfigurator.py
+                # ../application/concurrency/taskconfigurator.py
                 if not await base.db_empty(self.app):
                     task = make_task(start_delete_delay, self.app, 60)
                     asyncio.gather(task)
 
+                # Generate an image
                 img_url = get_image_url()
                 response.update({'status': 'success'})
                 response.update({'image_url': img_url})
+
+            # The option where token is not first.
             elif token_availability:
                 response.update({'status': 'wrong_turn'})
+
+            # The option where token is not within the queue.
             else:
                 response.update({'status': 'cheater'})
+
+        # The option where no tokens in database
         else:
             response.update({'status': 'db_empty'})
 
@@ -76,13 +88,20 @@ class Token(web.View):
     async def get(self):
         """Generate token and represent it.
 
+        returns a generated token.
         """
+
+        # We need this check to get a point about # of call.
+        # If it's 1st call therefore we need start delay task.
+        # If it's not then we skip the delay starting.
         db_emptiness = await base.db_empty(self.app)
+
+        # Generating & Inserting into database a token
         token = self.app['new_token'].generate_new_token()
         await base.insert_token_into_db(self.app, token)
 
-        # Check is there the tokens needed to be popped.
-        if db_emptiness:
+        # Creating the first task for the token' popping
+        if not db_emptiness:
             task = make_task(start_delete_delay, self.app, 60)
             asyncio.gather(task)
 
