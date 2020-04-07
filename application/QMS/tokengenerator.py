@@ -61,6 +61,5 @@ class TokenGenerator:
         Append the token as a list into the another list "ready to present"
 
         """
-        # TODO I really do not like the sort()
         self.tokens_ready_to_present.append(list(token))
         self.tokens_ready_to_present.sort()
