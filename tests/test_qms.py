@@ -6,7 +6,7 @@ class TestQueryManagementSystem(unittest.TestCase):
 
     t = TokenGenerator()
 
-    def testFirstObtaining(self):
+    def test_first_obtaining(self):
 
         # Testing the case with empty usage history
         self.assertEqual(self.t.generate_new_token(), 'A00')
