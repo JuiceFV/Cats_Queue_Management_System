@@ -41,6 +41,25 @@ function copyButton(){
 	}
 }
 
+function autoReturnBack(delay){
+	var print_sec = delay;
+
+	var x = setInterval(function () {
+		document.getElementById('timer').innerHTML = print_sec + " seconds remain";
+		print_sec = print_sec - 1;
+		if (print_sec < 5){
+			document.getElementById('timer').style.color = 'rgb(255, 0,0)';
+		}
+		if (print_sec < 0){
+			clearInterval(x);
+			if (document.getElementById('show-token-content').style.display === 'flex'){
+				returnBack();
+				document.getElementById('timer').style.color = '#333';
+			}
+			document.getElementById('timer').innerHTML = "15 seconds remain";
+		}
+	}, 1000);
+}
 
 $(document).ready(function () {
 	$('#get-token-part').on('submit', function (event) {
@@ -53,9 +72,11 @@ $(document).ready(function () {
 			$('#queue-tablet-part').hide();
 			$('#token').text(data.token);
 			$('#show-token-content').css('display', 'flex');
+			autoReturnBack(14);
 		});
 		event.preventDefault();
 	});
+
 	$('#check-token').on('submit', function (event) {
 		$.ajax({
 			type: 'post',
