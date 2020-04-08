@@ -233,6 +233,7 @@
 	font-weight: 600;
 	color: #333;
 	flex: 1 1 auto;
+	flex-direction: column;
 }
 
 /*
@@ -293,3 +294,4 @@
 	height: 90%;
 	border-radius: 8px;
 }
+
