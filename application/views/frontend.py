@@ -39,8 +39,8 @@ class Token(web.View):
 
         # delete_token_from_db() makes an effort to delete the token from db
         # It returns two values:
-        # 1) token_availability -- Is the token in the database? (True/False)
-        # 2) token_accuracy -- Does the token coincides with the first token. It receives (True/False) except the case
+        # 1) token_availability -- Is the token in database? (True/False)
+        # 2) token_accuracy -- Does the token coincide with the first token. It receives (True/False) except the case
         #                      when the data base empty in this way it appears as the string ('Table is empty')
         token_availability, token_accuracy = await base.delete_token_from_db(self.app, post_data['token-field'])
 
@@ -52,7 +52,8 @@ class Token(web.View):
 
                 # How do I close a task? Follow link below:
                 # https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view
-                get_previous_task().cancel()
+                if closing_task := get_previous_task():
+                    closing_task.cancel()
 
                 # If the token is first then we shall to prepare it for the reuse.
                 # The prepare_used_token() is placed at ../application/QMS/tokengenerator.py
