@@ -17,11 +17,20 @@ async def start_delete_delay(app, delay):
     delay -- a delay in seconds
     """
     async with app['db'].acquire() as conn:
+
+        # First of all we need to check for database emptiness
         query = text("SELECT True FROM tokens LIMIT(1)")
         if await conn.fetch(query):
+
+            # If database is not empty then we are processing a waiting delay.
+            # First, fetching an id & related token from the first position (due to it queue) from database.
             query = select([db.tokens.c.id, db.tokens.c.token]).order_by(asc(db.tokens.c.id)).limit(1)
             query_result = await conn.fetchrow(query)
+
+            # Retrieving an id and token
             id_before_sleep, token = query_result['id'], query_result['token']
+
+            # Setting a delay
             try:
                 await asyncio.sleep(delay)
 
@@ -29,13 +38,25 @@ async def start_delete_delay(app, delay):
             # https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel
             except asyncio.CancelledError:
                 pass
+
+            # Check whether a token at the first place as same as it was before
             finally:
-                query_result = await conn.fetchrow(query)
-                id_after_sleep = query_result['id']
-                if id_before_sleep == id_after_sleep:
-                    query = delete(db.tokens).where(db.tokens.c.id == id_before_sleep)
-                    app['new_token'].prepare_used_token(token)
-                    if await conn.fetch(text("SELECT True FROM tokens LIMIT(1)")):
+
+                # If it possible but all of members picked their tokens over 60 seconds.
+                if await conn.fetch(text("SELECT True FROM tokens LIMIT(1)")):
+                    query_result = await conn.fetchrow(query)
+                    id_after_sleep = query_result['id']
+
+                    # If they are same then we delete that token and starting delay again.
+                    if id_before_sleep == id_after_sleep:
+                        query = delete(db.tokens).where(db.tokens.c.id == id_before_sleep)
+
+                        # preparing a token for reuse.
+                        app['new_token'].prepare_used_token(token)
+
+                        # Deleting a token
                         await conn.fetchrow(query)
+
+                        # Starting a delay for adjacent token, over and over and over
                         task = make_task(start_delete_delay, app, delay)
                         asyncio.gather(task)
