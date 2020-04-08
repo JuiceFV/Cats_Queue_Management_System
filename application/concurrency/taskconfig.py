@@ -32,5 +32,6 @@ def get_previous_task():
     """
     This function returns first task in the queue.
     """
-    if _tasks:
-        return _tasks[0]
+
+    return _tasks[0] if len(_tasks) != 0 else None
+
