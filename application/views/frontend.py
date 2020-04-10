@@ -102,7 +102,7 @@ class Token(web.View):
         await base.insert_token_into_db(self.app, token)
 
         # Creating the first task for the token' popping
-        if not db_emptiness:
+        if db_emptiness:
             task = make_task(start_delete_delay, self.app, 60)
             asyncio.gather(task)
 
