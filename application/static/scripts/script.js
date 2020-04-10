@@ -1,3 +1,5 @@
+var x;
+
 //A function that makes it seem as if the card is being ejected
 function activatePart(part){
 	var activePart = document.getElementById(part + '-part');
@@ -21,6 +23,9 @@ function returnBack(){
 	tokenPart.style.display = "flex";
 	queuePart.style.display = "flex";
 	showTokenContent.style.display = "none";
+	clearInterval(x);
+	document.getElementById('timer').style.color = '#333';
+	document.getElementById('timer').innerHTML = "15 seconds remain";
 }
 
 function copyButton(){
@@ -44,19 +49,16 @@ function copyButton(){
 function autoReturnBack(delay){
 	var print_sec = delay;
 
-	var x = setInterval(function () {
+	x = setInterval(function () {
 		document.getElementById('timer').innerHTML = print_sec + " seconds remain";
 		print_sec = print_sec - 1;
 		if (print_sec < 5){
 			document.getElementById('timer').style.color = 'rgb(255, 0,0)';
 		}
 		if (print_sec < 0){
-			clearInterval(x);
 			if (document.getElementById('show-token-content').style.display === 'flex'){
 				returnBack();
-				document.getElementById('timer').style.color = '#333';
 			}
-			document.getElementById('timer').innerHTML = "15 seconds remain";
 		}
 	}, 1000);
 }
