@@ -281,7 +281,6 @@
 }
 
 #image-box{
-	display: none;
 	width: 100%;
 	height: 100%;
 	align-items: center;
@@ -289,9 +288,10 @@
 	border-radius: 8px;
 }
 
-#image{
-	width: 90%;
-	height: 90%;
+#image {
+	max-width: 90%;
+	max-height: 90%;
+	width: 100%;
+	height: auto;
 	border-radius: 8px;
 }
-
