@@ -38,7 +38,12 @@ class TokenGenerator:
 
         """
         if self.tokens_ready_to_present:
-            self.token = self.tokens_ready_to_present.pop(0)
+
+            # Due to the self.token retains the prev token
+            # we return used token like that
+            # for instance, if used token A00 then the next one
+            # will A01, however we already have one.
+            return ''.join(self.tokens_ready_to_present.pop(0))
         elif self.token is None:
             self.token = ['A', '0', '0']
         elif self.token[2] < '9':
