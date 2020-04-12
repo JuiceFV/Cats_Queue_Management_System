@@ -123,7 +123,7 @@ async def get_all_tokens(app):
 async def get_num_of_tokens(app):
     """
     This function returns number of tokens in db
-    It uses only once in the Index.get for a position
+    It uses only once in the Token.get for a position
     retrieving.
 
     Keywords arguments:
