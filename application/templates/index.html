@@ -59,13 +59,56 @@
 					</div>
 					<div id="token-queue">
 						<div class="queue-column" id="first-column">
-
+							{% if token_list %}
+								{% if token_list|length <= 15 %}
+									{% for token_el in token_list %}
+										<div class="token-field">{{token_el.token}}</div>
+									{% endfor %}
+								{% else %}
+									{% for i in range(15) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% endif %}
+							{% endif %}
 						</div>
 						<div class="queue-column" id="second-column">
+							{% if token_list %}
+								{% if token_list|length <= 30 %}
+									{% for i in range(15, token_list|length) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% else %}
+									{% for i in range(15, 30) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% endif %}
+							{% endif %}
 						</div>
 						<div class="queue-column" id="third-column">
+							{% if token_list %}
+								{% if token_list|length <= 45 %}
+									{% for i in range(30, token_list|length) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% else %}
+									{% for i in range(30, 45) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% endif %}
+							{% endif %}
 						</div>
 						<div class="queue-column" id="forth-column">
+							{% if token_list %}
+								{% if token_list|length <= 60 %}
+									{% for i in range(45, token_list|length) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% else %}
+									{% for i in range(45, 60) %}
+										<div class="token-field">{{token_list[i].token}}</div>
+									{% endfor %}
+								{% endif %}
+							{% endif %}
 						</div>
 					</div>
 				</div>
