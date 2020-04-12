@@ -4,7 +4,7 @@
 import asyncpgsa
 from .db import tokens
 from sqlalchemy import (
-    select, insert, delete, text, asc, case
+    select, insert, delete, text, asc, func
 )
 
 
@@ -103,6 +103,38 @@ async def delete_token_from_db(app, token):
         # Table is already empty. User need to get a token.
         else:
             return False, 'Table is empty'
+
+
+async def get_all_tokens(app):
+    """
+    This function created for a js displaying function
+
+    Keywords arguments:
+    app -- the application
+
+    returns all tokens in database
+    """
+    async with app['db'].acquire() as conn:
+        query = select([tokens.c.token])
+        result = await conn.fetch(query)
+        return result
+
+
+async def get_num_of_tokens(app):
+    """
+    This function returns number of tokens in db
+    It uses only once in the Index.get for a position
+    retrieving.
+
+    Keywords arguments:
+    app -- the application
+
+    returns number of tokens/position
+    """
+    async with app['db'].acquire() as conn:
+        query = select([func.count(tokens.c.token)])
+        result = await conn.fetch(query)
+        return result
 
 
 async def on_shutdown(app):
