@@ -17,7 +17,9 @@ class Index(web.View):
     """
     @template('index.html')
     async def get(self):
-        return {}
+        token_list = await base.get_all_tokens(self.app)
+
+        return {'token_list': token_list}
 
 
 class Token(web.View):
@@ -89,7 +91,7 @@ class Token(web.View):
     async def get(self):
         """Generate token and represent it.
 
-        returns a generated token.
+        returns a generated token and its position for the js func.
         """
 
         # We need this check to get a point about # of call.
@@ -106,4 +108,7 @@ class Token(web.View):
             task = make_task(start_delete_delay, self.app, 60)
             asyncio.gather(task)
 
-        return web.json_response({'token': token})
+        # retrieving a token position for the js function (display_queue_add)
+        token_position = await base.get_num_of_tokens(self.app)
+
+        return web.json_response({'token': token, 'token_position': token_position[0]['count_1']})
