@@ -217,6 +217,11 @@
 	flex: 1 1 auto;
 	font-size: 16px;
     font-weight: 800;
+	border-left: 2px solid lightgray;
+}
+
+#forth-column{
+	border-right: 2px solid lightgray;
 }
 
 #show-token-content{
@@ -304,4 +309,11 @@
     max-height: 80%;
 	background: black;
 	border-radius: 8px;
+}
+
+.token-field{
+	height: 6.25%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
 }
