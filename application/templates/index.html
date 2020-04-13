@@ -60,12 +60,12 @@
 					<div id="token-queue">
 						<div class="queue-column" id="first-column">
 							{% if token_list %}
-								{% if token_list|length <= 15 %}
+								{% if token_list|length <= 16 %}
 									{% for token_el in token_list %}
 										<div class="token-field">{{token_el.token}}</div>
 									{% endfor %}
 								{% else %}
-									{% for i in range(15) %}
+									{% for i in range(16) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% endif %}
@@ -73,12 +73,12 @@
 						</div>
 						<div class="queue-column" id="second-column">
 							{% if token_list %}
-								{% if token_list|length <= 30 %}
-									{% for i in range(15, token_list|length) %}
+								{% if token_list|length <= 32 %}
+									{% for i in range(16, token_list|length) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% else %}
-									{% for i in range(15, 30) %}
+									{% for i in range(16, 32) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% endif %}
@@ -86,12 +86,12 @@
 						</div>
 						<div class="queue-column" id="third-column">
 							{% if token_list %}
-								{% if token_list|length <= 45 %}
-									{% for i in range(30, token_list|length) %}
+								{% if token_list|length <= 48 %}
+									{% for i in range(32, token_list|length) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% else %}
-									{% for i in range(30, 45) %}
+									{% for i in range(32, 48) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% endif %}
@@ -99,12 +99,12 @@
 						</div>
 						<div class="queue-column" id="forth-column">
 							{% if token_list %}
-								{% if token_list|length <= 60 %}
-									{% for i in range(45, token_list|length) %}
+								{% if token_list|length <= 64 %}
+									{% for i in range(48, token_list|length) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% else %}
-									{% for i in range(45, 60) %}
+									{% for i in range(48, 64) %}
 										<div class="token-field">{{token_list[i].token}}</div>
 									{% endfor %}
 								{% endif %}
