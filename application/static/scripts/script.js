@@ -68,18 +68,19 @@ function display_queue_add(token, token_position){
 	var tag = document.createElement("div");
 	var text = document.createTextNode(token);
 	tag.appendChild(text);
+	tag.setAttribute("class", "token-field");
 		// cond where res list ! empty
-	if (token_position <= 15){
+	if (token_position <= 16){
 		column = document.getElementById("first-column");
 		column.appendChild(tag);
 		//adding to the 1st column
-	} else if (token_position <= 30) {
+	} else if (token_position <= 32) {
 		column = document.getElementById("second-column");
 		column.appendChild(tag);
-	} else if (token_position <= 45) {
+	} else if (token_position <= 48) {
 		column = document.getElementById("third-column");
 		column.appendChild(tag);
-	} else if (token_position <= 60) {
+	} else if (token_position <= 64) {
 		column = document.getElementById("forth-column");
 		column.appendChild(tag);
 	} else {
@@ -88,7 +89,27 @@ function display_queue_add(token, token_position){
 }
 
 function  display_queue_remove(){
-
+	var tag;
+	var first_column = document.getElementById("first-column");
+	var second_column = document.getElementById("second-column");
+	var third_column = document.getElementById("third-column");
+	var forth_column = document.getElementById("forth-column");
+	first_column.removeChild(first_column.firstElementChild);
+	if (second_column.firstElementChild){
+		tag = second_column.firstElementChild;
+		second_column.removeChild(second_column.firstElementChild);
+		first_column.appendChild(tag);
+	}
+	if (third_column.firstElementChild){
+		tag = third_column.firstElementChild;
+		third_column.removeChild(third_column.firstElementChild);
+		second_column.appendChild(tag);
+	}
+	if (forth_column.firstElementChild){
+		tag = forth_column.firstElementChild;
+		forth_column.removeChild(forth_column.firstElementChild);
+		third_column.appendChild(tag);
+	}
 }
 
 $(document).ready(function () {
@@ -118,6 +139,7 @@ $(document).ready(function () {
 			if (data.status === 'success') {
 				$('#image').attr('src', data.image_url);
 				$('#image-box').css('display', 'flex');
+				display_queue_remove();
 			}else if (data.status === 'wrong_turn'){
 				alert("It's not your turn");
 			}else if (data.status === 'cheater'){
