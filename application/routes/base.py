@@ -3,14 +3,16 @@
 """
 from aiohttp import web
 from application.views import frontend
+from application.server_sent_events import send_request_for_queue_update
 
 
 def setup_routes(app):
     app.add_routes(
                     [
-                        web.get('/', frontend.Index.get),
-                        web.get('/get-token', frontend.Token.get),
-                        web.post('/post-token', frontend.Token.post),
+                        web.get('/', frontend.Index.get, name='index'),
+                        web.get('/get-token', frontend.Token.get, name='token-getter'),
+                        web.post('/post-token', frontend.Token.post, name='image-getter'),
+                        web.get('/update', send_request_for_queue_update)
                     ]
                    )
 
