@@ -57,6 +57,10 @@ async def start_delete_delay(app, delay):
                         # Deleting a token
                         await conn.fetchrow(query)
 
+                        # Setting the flag to on, it means that we updating
+                        # a queue. And SSE catching and handling it by checking this variable every second.
+                        app['update_queue_vis'] = True
+
                         # Starting a delay for adjacent token, over and over and over
                         task = make_task(start_delete_delay, app, delay)
                         asyncio.gather(task)
