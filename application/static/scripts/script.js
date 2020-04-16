@@ -1,4 +1,9 @@
 var x;
+const evtSource = new EventSource("/update");
+evtSource.onmessage = function(e) {
+                    display_queue_remove();
+}
+
 
 //A function that makes it seem as if the card is being ejected
 function activatePart(part){
