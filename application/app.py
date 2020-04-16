@@ -46,8 +46,10 @@ async def create_app(config: dict):
     app = web.Application()
 
     # Importing a config into the application
+    # Then creating the global variable responsible for queue representation, specifically auto-removing
     # Also creating the global variable responsible for a token
     app['config'] = config
+    app['update_queue_vis'] = False
     app['new_token'] = TokenGenerator()
 
     # Adding logging
