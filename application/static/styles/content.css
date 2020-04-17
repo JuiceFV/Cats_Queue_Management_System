@@ -293,6 +293,7 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 8px;
+	display: flex;
 }
 
 #image {
@@ -303,7 +304,7 @@
 }
 
 #image-cover {
-    display: flex;
+    display: none;
     justify-content: center;
     width: 90%;
     max-height: 80%;
@@ -316,4 +317,8 @@
 	display: flex;
 	justify-content: center;
 	align-content: center;
+}
+
+.loader-wrapper{
+	display: none;
 }
