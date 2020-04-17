@@ -50,6 +50,7 @@ async def create_app(config: dict):
     # Also creating the global variable responsible for a token
     app['config'] = config
     app['update_queue_vis'] = False
+    app['ban_list'] = {}
     app['new_token'] = TokenGenerator()
 
     # Adding logging
