@@ -1,9 +1,9 @@
 var x;
 const evtSource = new EventSource("/update");
 evtSource.onmessage = function(e) {
-                    display_queue_remove();
+	display_queue_remove();
 }
-
+var redundant_tokens = [];
 
 //A function that makes it seem as if the card is being ejected
 function activatePart(part){
@@ -89,7 +89,7 @@ function display_queue_add(token, token_position){
 		column = document.getElementById("forth-column");
 		column.appendChild(tag);
 	} else {
-		alert("global/server list retention");
+		redundant_tokens.push(tag);
 	}
 }
 
@@ -115,6 +115,9 @@ function  display_queue_remove(){
 		forth_column.removeChild(forth_column.firstElementChild);
 		third_column.appendChild(tag);
 	}
+	if (redundant_tokens.length > 0) {
+		forth_column.appendChild(redundant_tokens.shift());
+	}
 }
 
 $(document).ready(function () {
@@ -124,12 +127,16 @@ $(document).ready(function () {
 			url: '/get-token',
 			dataType: 'json'
 		}).done(function (data) {
-			$('#token-part').hide();
-			$('#queue-tablet-part').hide();
-			$('#token').text(data.token);
-			$('#show-token-content').css('display', 'flex');
-			display_queue_add(data.token, data.token_position);
-			autoReturnBack(14);
+			if (data.status === "ok") {
+				$('#token-part').hide();
+				$('#queue-tablet-part').hide();
+				$('#token').text(data.token);
+				$('#show-token-content').css('display', 'flex');
+				display_queue_add(data.token, data.token_position);
+				autoReturnBack(14);
+			} else {
+				alert("You were banned");
+			}
 		});
 		event.preventDefault();
 	});
@@ -139,17 +146,29 @@ $(document).ready(function () {
 			type: 'post',
 			url: '/post-token',
 			data: $('input').serialize(),
-			dataType: 'json'
+			dataType: 'json',
+			beforeSend: function() {
+				$('#image-cover').css('display', 'none');
+				$('.loader-wrapper').css('display', 'block');
+				$('#image').attr('src', "");
+				},
 		}).done(function (data) {
 			if (data.status === 'success') {
 				$('#image').attr('src', data.image_url);
-				$('#image-box').css('display', 'flex');
 				display_queue_remove();
+				$('.loader-wrapper').css('display', 'none');
+				$('#image-cover').css('display', 'flex');
 			}else if (data.status === 'wrong_turn'){
+				$('.loader-wrapper').css('display', 'none');
 				alert("It's not your turn");
 			}else if (data.status === 'cheater'){
-				alert("Cheating");
+				$('.loader-wrapper').css('display', 'none');
+				alert("You're cheater therefore you banned");
+			}else if (data.status === 'banned'){
+				$('.loader-wrapper').css('display', 'none');
+				alert("You were banned");
 			}else{
+				$('.loader-wrapper').css('display', 'none');
 				alert("There are no any tokens");
 			}
 		});
