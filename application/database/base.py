@@ -4,7 +4,7 @@
 import asyncpgsa
 from .db import tokens
 from sqlalchemy import (
-    select, insert, delete, text, asc, func
+    select, insert, delete, text, asc, func,
 )
 
 
