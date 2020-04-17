@@ -33,58 +33,67 @@ class Token(web.View):
          3) Such token doesn't exist hence return cheating-error
          4) Data base is empty. This status was created for my own purposes, it's 3d option indeed.
         """
-        # Receive the data from the request
-        post_data = await self.post()
-
-        # The response depended on post_data accuracy.
+        # The response
         response = {}
 
-        # delete_token_from_db() makes an effort to delete the token from db
-        # It returns two values:
-        # 1) token_availability -- Is the token in database? (True/False)
-        # 2) token_accuracy -- Does the token coincide with the first token. It receives (True/False) except the case
-        #                      when the data base empty in this way it appears as the string ('Table is empty')
-        token_availability, token_accuracy = await base.delete_token_from_db(self.app, post_data['token-field'])
+        # Checking if a cliet-peer in the ban-list
+        if not self.app['ban_list'].get(self.transport.get_extra_info('peername')[0]):
+            # Receive the data from the request
+            post_data = await self.post()
 
-        # Check for the database emptiness
-        if token_accuracy != 'Table is empty':
+            # delete_token_from_db() makes an effort to delete the token from db
+            # It returns two values:
+            # 1) token_availability -- Is the token in database? (True/False)
+            # 2) token_accuracy -- Does the token coincide with the first token. It receives bool except the case
+            #                      when the data base empty in this way it appears as the string ('Table is empty')
+            token_availability, token_accuracy = await base.delete_token_from_db(self.app, post_data['token-field'])
 
-            # First case, whether the needed toke is first one?
-            if token_availability and token_accuracy:
+            # Check for the database emptiness
+            if token_accuracy != 'Table is empty':
 
-                # How do I close a task? Follow link below:
-                # https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view
-                if closing_task := get_previous_task():
-                    closing_task.cancel()
+                # First case, whether the needed toke is first one?
+                if token_availability and token_accuracy:
 
-                # If the token is first then we shall to prepare it for the reuse.
-                # The prepare_used_token() is placed at ../application/QMS/tokengenerator.py
-                self.app['new_token'].prepare_used_token(post_data['token-field'])
+                    # How do I close a task? Follow link below:
+                    # https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view
+                    if closing_task := get_previous_task():
+                        closing_task.cancel()
 
-                # Start the timer for the next token
-                # If user used his/her/its token until the out of the time I want to close the task of the time counting
-                # Therefore I using the function of creating the task placed at
-                # ../application/concurrency/taskconfigurator.py
-                if not await base.db_empty(self.app):
-                    task = make_task(start_delete_delay, self.app, 60)
-                    asyncio.gather(task)
+                    # If the token is first then we shall to prepare it for the reuse.
+                    # The prepare_used_token() is placed at ../application/QMS/tokengenerator.py
+                    self.app['new_token'].prepare_used_token(post_data['token-field'])
 
-                # Generate an image
-                img_url = get_image_url()
-                response.update({'status': 'success'})
-                response.update({'image_url': img_url})
+                    # Start the timer for the next token
+                    # If user used his/her/its token until the out of the time
+                    # I want to close the task of the time counting
+                    # Therefore I using the function of creating the task placed at
+                    # ../application/concurrency/taskconfigurator.py
+                    if not await base.db_empty(self.app):
+                        task = make_task(start_delete_delay, self.app, 60)
+                        asyncio.gather(task)
 
-            # The option where token is not first.
-            elif token_availability:
-                response.update({'status': 'wrong_turn'})
+                    # Generate an image
+                    img_url = get_image_url()
+                    response.update({'status': 'success'})
+                    response.update({'image_url': img_url})
 
-            # The option where token is not within the queue.
+                # The option where token is not first.
+                elif token_availability:
+                    response.update({'status': 'wrong_turn'})
+
+                # The option where token is not within the queue.
+                else:
+                    peer = self.transport.get_extra_info('peername')
+                    self.app['ban_list'].update({peer[0]: 'banned'})
+                    response.update({'status': 'cheater'})
+
+            # The option where no tokens in database
             else:
-                response.update({'status': 'cheater'})
+                response.update({'status': 'db_empty'})
 
-        # The option where no tokens in database
+        # When a user in ban-list
         else:
-            response.update({'status': 'db_empty'})
+            response.update({'status': 'banned'})
 
         return web.json_response(response)
 
@@ -93,22 +102,23 @@ class Token(web.View):
 
         returns a generated token and its position for the js func.
         """
+        if not self.app['ban_list'].get(self.transport.get_extra_info('peername')[0]):
+            # We need this check to get a point about # of call.
+            # If it's 1st call therefore we need start delay task.
+            # If it's not then we skip the delay starting.
+            db_emptiness = await base.db_empty(self.app)
 
-        # We need this check to get a point about # of call.
-        # If it's 1st call therefore we need start delay task.
-        # If it's not then we skip the delay starting.
-        db_emptiness = await base.db_empty(self.app)
+            # Generating & Inserting into database a token
+            token = self.app['new_token'].generate_new_token()
+            await base.insert_token_into_db(self.app, token)
 
-        # Generating & Inserting into database a token
-        token = self.app['new_token'].generate_new_token()
-        await base.insert_token_into_db(self.app, token)
+            # Creating the first task for the token' popping
+            if db_emptiness:
+                task = make_task(start_delete_delay, self.app, 60)
+                asyncio.gather(task)
 
-        # Creating the first task for the token' popping
-        if db_emptiness:
-            task = make_task(start_delete_delay, self.app, 60)
-            asyncio.gather(task)
+            # retrieving a token position for the js function (display_queue_add)
+            token_position = await base.get_num_of_tokens(self.app)
 
-        # retrieving a token position for the js function (display_queue_add)
-        token_position = await base.get_num_of_tokens(self.app)
-
-        return web.json_response({'token': token, 'token_position': token_position[0]['count_1']})
+            return web.json_response({'status': 'ok', 'token': token, 'token_position': token_position[0]['count_1']})
+        return web.json_response({'status': 'banned'})
