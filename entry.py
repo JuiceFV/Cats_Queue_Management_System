@@ -41,15 +41,22 @@ except ImportError:
 # 1) --host HOST which will be listened
 # 2) --port PORT to accept connection
 # 3) --config YOUR_CFG.yaml pass your own config for this project. The default settings are places at config.yaml
+# 4) --test makes the run-type = test
+# 5) --debug makes the run-type = debug
+# 6) --release makes the run-type = release
 parser = argparse.ArgumentParser(description="Kitty Getter Project")
 parser.add_argument('--host', help="Host to listen", default='0.0.0.0')
 parser.add_argument('--port', help="Port to accept connection", default=8080)
 parser.add_argument('-c', '--config', type=argparse.FileType('r'), help="Path to configuration file")
+parser.add_argument('-t', '--test', help="The run-type sets as test", action='store_true')
+parser.add_argument('-d', '--debug', help="The run-type sets as debug", action='store_true')
+parser.add_argument('-r', '--release', help="The run-type sets as release", action='store_true')
 args = parser.parse_args()
+
 
 # Creates an application with already set configuration and routes.
 # The function create_app() is located at app.py
-app = create_app(config=load_config(args.config))
+app = create_app(config=load_config(args.config, args.test, args.debug, args.release))
 
 if __name__ == '__main__':
     web.run_app(app, host=args.host, port=args.port)
