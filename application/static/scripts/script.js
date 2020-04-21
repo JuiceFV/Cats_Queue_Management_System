@@ -1,9 +1,23 @@
 var x;
+var redundant_tokens = [];
 const evtSource = new EventSource("/update");
 evtSource.onmessage = function(e) {
-	display_queue_remove();
+
+	if(e.data === "update")
+		display_queue_remove();
+	else {
+		let list_tokens_str = e.data.split(' ');
+		let tag;
+		let text;
+		for(let i = 0; i < list_tokens_str.length - 1; i++) {
+			tag = document.createElement("div");
+			text = document.createTextNode(list_tokens_str[i]);
+			tag.appendChild(text);
+			tag.setAttribute("class", "token-field");
+			redundant_tokens[i] = tag;
+		}
+	}
 }
-var redundant_tokens = [];
 
 //A function that makes it seem as if the card is being ejected
 function activatePart(part){
@@ -120,6 +134,7 @@ function  display_queue_remove(){
 	}
 }
 
+
 $(document).ready(function () {
 	$('#get-token-part').on('submit', function (event) {
 		$.ajax({
@@ -148,16 +163,14 @@ $(document).ready(function () {
 			data: $('input').serialize(),
 			dataType: 'json',
 			beforeSend: function() {
-				$('#image-cover').css('display', 'none');
 				$('.loader-wrapper').css('display', 'block');
-				$('#image').attr('src', "");
+				$('#image').attr('src', "").css('display', 'none');
 				},
 		}).done(function (data) {
 			if (data.status === 'success') {
-				$('#image').attr('src', data.image_url);
+				$('#image').attr('src', data.image_url).css('display', 'flex');
 				display_queue_remove();
 				$('.loader-wrapper').css('display', 'none');
-				$('#image-cover').css('display', 'flex');
 			}else if (data.status === 'wrong_turn'){
 				$('.loader-wrapper').css('display', 'none');
 				alert("It's not your turn");
