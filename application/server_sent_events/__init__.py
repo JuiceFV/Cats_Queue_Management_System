@@ -1,3 +1,3 @@
-from .events import send_request_for_queue_update
+from .events import sse_updates
 
-__all__ = ('send_request_for_queue_update',)
+__all__ = ('sse_updates',)
