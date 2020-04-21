@@ -1,4 +1,4 @@
-"""In this file you can find the configuration processing function.
+"""In this file you can find the configuration-processing function.
 
 Import packages:
 pathlib.Path -- package for the ease path definition
@@ -18,7 +18,7 @@ import yaml
 __all__ = ('load_config',)
 
 
-def load_config(cfg_file=None):
+def load_config(cfg_file=None, test=None, debug=None, release=None):
     """This function handle and upload the configuration into the application.
 
     Keyword arguments:
@@ -43,5 +43,14 @@ def load_config(cfg_file=None):
     # if dict doesn't empty then updated the config.
     if cfg_dict:
         config.update(**cfg_dict)
+
+    # There are 3 possible run-type options
+    # If they were passed as an argument therefore we changing it
+    if test:
+        config['run_type'] = 'test'
+    elif debug:
+        config['run_type'] = 'debug'
+    elif release:
+        config['run_type'] = 'release'
 
     return config
