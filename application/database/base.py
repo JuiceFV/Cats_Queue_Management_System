@@ -149,5 +149,6 @@ async def on_shutdown(app):
         await conn.fetchrow(query)
         await conn.execute("ALTER SEQUENCE tokens_id_seq RESTART ")
     await app['db'].close()
+    app['ban_list'][0].close()
 
 
