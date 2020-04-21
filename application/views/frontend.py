@@ -1,4 +1,10 @@
-"""
+"""This file responsible for basic routes.
+
+It contains two different classes:
+1) Index - class has the only 'get' method which handling the index-page. In the case where tokens are exists it returns
+   them as a list in purpose to represent them using JS.
+2) Token - the basic class which responsible for the gist logic of the application. Where 'get' - returns a new token
+   and 'post' - returns either an image or an error. However both of them check for a cheater.
 
 """
 from aiohttp_jinja2 import template
@@ -18,6 +24,7 @@ class Index(web.View):
     @template('index.html')
     async def get(self):
         token_list = await base.get_all_tokens(self.app)
+        self.app['redundant_tokens_vis'][0] = True
 
         return {'token_list': token_list}
 
@@ -33,11 +40,11 @@ class Token(web.View):
          3) Such token doesn't exist hence return cheating-error
          4) Data base is empty. This status was created for my own purposes, it's 3d option indeed.
         """
-        # The response
+        # A response
         response = {}
 
         # Checking if a cliet-peer in the ban-list
-        if not self.app['ban_list'].get(self.transport.get_extra_info('peername')[0]):
+        if not self.app['ban_list'][1].get(self.transport.get_extra_info('peername')[0]):
             # Receive the data from the request
             post_data = await self.post()
 
@@ -72,6 +79,9 @@ class Token(web.View):
                         task = make_task(start_delete_delay, self.app, 60)
                         asyncio.gather(task)
 
+                    if self.app['redundant_tokens_vis'][1]:
+                        self.app['redundant_tokens_vis'][1].pop(0)
+
                     # Generate an image
                     img_url = get_image_url()
                     response.update({'status': 'success'})
@@ -84,7 +94,9 @@ class Token(web.View):
                 # The option where token is not within the queue.
                 else:
                     peer = self.transport.get_extra_info('peername')
-                    self.app['ban_list'].update({peer[0]: 'banned'})
+                    with open(self.app['ban_list'][0].name, 'a') as banlist_file:
+                        banlist_file.write(peer[0] + '\n')
+                    self.app['ban_list'][1].update({peer[0]: 'banned'})
                     response.update({'status': 'cheater'})
 
             # The option where no tokens in database
@@ -102,7 +114,7 @@ class Token(web.View):
 
         returns a generated token and its position for the js func.
         """
-        if not self.app['ban_list'].get(self.transport.get_extra_info('peername')[0]):
+        if not self.app['ban_list'][1].get(self.transport.get_extra_info('peername')[0]):
             # We need this check to get a point about # of call.
             # If it's 1st call therefore we need start delay task.
             # If it's not then we skip the delay starting.
@@ -119,6 +131,9 @@ class Token(web.View):
 
             # retrieving a token position for the js function (display_queue_add)
             token_position = await base.get_num_of_tokens(self.app)
+
+            if token_position[0]['count_1'] > 64:
+                self.app['redundant_tokens_vis'][1].append(token)
 
             return web.json_response({'status': 'ok', 'token': token, 'token_position': token_position[0]['count_1']})
         return web.json_response({'status': 'banned'})
