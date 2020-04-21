@@ -297,20 +297,14 @@
 }
 
 #image {
+	max-width: 90%;
+	max-height: 90%;
 	width: 100%;
 	height: auto;
 	border-radius: 8px;
-	opacity: 1;
+	display: none;
 }
 
-#image-cover {
-    display: none;
-    justify-content: center;
-    width: 90%;
-    max-height: 80%;
-	background: black;
-	border-radius: 8px;
-}
 
 .token-field{
 	height: 6.25%;
@@ -322,3 +316,4 @@
 .loader-wrapper{
 	display: none;
 }
+
