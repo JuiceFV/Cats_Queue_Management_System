@@ -3,7 +3,7 @@
 """
 from aiohttp import web
 from application.views import frontend
-from application.server_sent_events import send_request_for_queue_update
+from application.server_sent_events import sse_updates
 
 
 def setup_routes(app):
@@ -12,7 +12,7 @@ def setup_routes(app):
                         web.get('/', frontend.Index.get, name='index'),
                         web.get('/get-token', frontend.Token.get, name='token-getter'),
                         web.post('/post-token', frontend.Token.post, name='image-getter'),
-                        web.get('/update', send_request_for_queue_update)
+                        web.get('/update', sse_updates)
                     ]
                    )
 
