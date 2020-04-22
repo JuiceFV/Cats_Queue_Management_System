@@ -1,5 +1,3 @@
-Close evtSource on server shutdown
-
 Set timer for an image representation
 
 Add Image download
