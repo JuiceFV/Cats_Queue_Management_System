@@ -57,9 +57,6 @@ def setup_application_variables(app, config):
     # Setting configuration
     app['config'] = config
 
-    # Setting variable responsible for in-time queue representation on web page.
-    app['request_for_queue_update_vis'] = False
-
     # Here we'ill contain the ban-list
     # index==0 - the file where ip' are placed constantly
     # index==1 - the dictionary where ip' are placed temporary (Because, Dict-Find complexity is O(1))
@@ -69,7 +66,11 @@ def setup_application_variables(app, config):
     # A token, specifically novel generated
     app['new_token'] = TokenGenerator()
 
-    app['redundant_tokens_vis'] = [False, []]
+    app['sse_requests'] = {
+        'update_queue_vis_append': [False, None, None],
+        'update_queue_vis_remove': False,
+        'redundant_tokens_vis': [False, []]
+    }
 
 
 async def create_app(config: dict):

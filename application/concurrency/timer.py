@@ -59,10 +59,10 @@ async def start_delete_delay(app, delay):
 
                         # Setting the flag to on, it means that we updating
                         # a queue. And SSE catching and handling it by checking this variable every second.
-                        app['request_for_queue_update_vis'] = True
+                        app['sse_requests']['update_queue_vis_remove'] = True
 
-                        if app['redundant_tokens_vis'][1]:
-                            app['redundant_tokens_vis'][1].pop(0)
+                        if app['sse_requests']['redundant_tokens_vis'][1]:
+                            app['sse_requests']['redundant_tokens_vis'][1].pop(0)
 
                         # Starting a delay for adjacent token, over and over and over
                         task = make_task(start_delete_delay, app, delay)

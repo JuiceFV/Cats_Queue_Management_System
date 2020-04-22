@@ -24,7 +24,7 @@ class Index(web.View):
     @template('index.html')
     async def get(self):
         token_list = await base.get_all_tokens(self.app)
-        self.app['redundant_tokens_vis'][0] = True
+        self.app['sse_requests']['redundant_tokens_vis'][0] = True
 
         return {'token_list': token_list}
 
@@ -79,8 +79,10 @@ class Token(web.View):
                         task = make_task(start_delete_delay, self.app, 60)
                         asyncio.gather(task)
 
-                    if self.app['redundant_tokens_vis'][1]:
-                        self.app['redundant_tokens_vis'][1].pop(0)
+                    if self.app['sse_requests']['redundant_tokens_vis'][1]:
+                        self.app['sse_requests']['redundant_tokens_vis'][1].pop(0)
+
+                    self.app['sse_requests']['update_queue_vis_remove'] = True
 
                     # Generate an image
                     img_url = get_image_url()
@@ -130,10 +132,12 @@ class Token(web.View):
                 asyncio.gather(task)
 
             # retrieving a token position for the js function (display_queue_add)
-            token_position = await base.get_num_of_tokens(self.app)
+            token_position = (await base.get_num_of_tokens(self.app))[0]['count_1']
 
-            if token_position[0]['count_1'] > 64:
-                self.app['redundant_tokens_vis'][1].append(token)
+            if token_position > 64:
+                self.app['sse_requests']['redundant_tokens_vis'][1].append(token)
 
-            return web.json_response({'status': 'ok', 'token': token, 'token_position': token_position[0]['count_1']})
+            self.app['sse_requests']['update_queue_vis_append'] = [True, token, token_position]
+
+            return web.json_response({'status': 'ok', 'token': token})
         return web.json_response({'status': 'banned'})

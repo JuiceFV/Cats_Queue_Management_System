@@ -1,17 +1,27 @@
+const evtSource = new EventSource("/update");
+
+evtSource.onerror = function(e){
+	if (e.eventPhase === EventSource.CLOSED){
+		evtSource.close();
+	}
+}
+
 var x;
 var redundant_tokens = [];
-const evtSource = new EventSource("/update");
-evtSource.onmessage = function(e) {
 
-	if(e.data === "update")
+evtSource.onmessage = function(e) {
+	let fetched_data = e.data.split(' ');
+	if(fetched_data[0] === "update-remove")
 		display_queue_remove();
-	else {
-		let list_tokens_str = e.data.split(' ');
+	else if(fetched_data[0] === "update-append")
+		display_queue_add(fetched_data[1], parseInt(fetched_data[2]));
+	else if (fetched_data[0] === "update-redtokens"){
+		fetched_data.shift();
 		let tag;
 		let text;
-		for(let i = 0; i < list_tokens_str.length - 1; i++) {
+		for(let i = 0; i < fetched_data.length - 1; i++) {
 			tag = document.createElement("div");
-			text = document.createTextNode(list_tokens_str[i]);
+			text = document.createTextNode(fetched_data[i]);
 			tag.appendChild(text);
 			tag.setAttribute("class", "token-field");
 			redundant_tokens[i] = tag;
@@ -147,7 +157,6 @@ $(document).ready(function () {
 				$('#queue-tablet-part').hide();
 				$('#token').text(data.token);
 				$('#show-token-content').css('display', 'flex');
-				display_queue_add(data.token, data.token_position);
 				autoReturnBack(14);
 			} else {
 				alert("You were banned");
@@ -169,7 +178,6 @@ $(document).ready(function () {
 		}).done(function (data) {
 			if (data.status === 'success') {
 				$('#image').attr('src', data.image_url).css('display', 'flex');
-				display_queue_remove();
 				$('.loader-wrapper').css('display', 'none');
 			}else if (data.status === 'wrong_turn'){
 				$('.loader-wrapper').css('display', 'none');
