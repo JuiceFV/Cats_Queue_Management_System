@@ -1,20 +1,23 @@
+// Creating a connection with server which receives messages to visually updating.
 const evtSource = new EventSource("/update");
 
+// When a server will has shutting down it's closing a connection by receiving an error.
 evtSource.onerror = function(e){
 	if (e.eventPhase === EventSource.CLOSED){
 		evtSource.close();
 	}
 }
 
-var x;
+var hidingTokenInterval;
+var hidingImageInterval;
 var redundant_tokens = [];
 
 evtSource.onmessage = function(e) {
 	let fetched_data = e.data.split(' ');
 	if(fetched_data[0] === "update-remove")
-		display_queue_remove();
+		displayQueueRemove();
 	else if(fetched_data[0] === "update-append")
-		display_queue_add(fetched_data[1], parseInt(fetched_data[2]));
+		displayQueueAdd(fetched_data[1], parseInt(fetched_data[2]));
 	else if (fetched_data[0] === "update-redtokens"){
 		fetched_data.shift();
 		let tag;
@@ -52,7 +55,7 @@ function returnBack(){
 	tokenPart.style.display = "flex";
 	queuePart.style.display = "flex";
 	showTokenContent.style.display = "none";
-	clearInterval(x);
+	clearInterval(hidingTokenInterval);
 	document.getElementById('timer').style.color = '#333';
 	document.getElementById('timer').innerHTML = "15 seconds remain";
 }
@@ -75,14 +78,14 @@ function copyButton(){
 	}
 }
 
-function autoReturnBack(delay){
+function autoTokenPartReclaim(delay){
 	var print_sec = delay;
 
-	x = setInterval(function () {
-		document.getElementById('timer').innerHTML = print_sec + " seconds remain";
+	hidingTokenInterval = setInterval(function () {
+		$('#timer').html(print_sec + " seconds remain");
 		print_sec = print_sec - 1;
 		if (print_sec < 5){
-			document.getElementById('timer').style.color = 'rgb(255, 0,0)';
+			$('#timer').css('color', 'rgb(255, 0,0)');
 		}
 		if (print_sec < 0){
 			if (document.getElementById('show-token-content').style.display === 'flex'){
@@ -92,7 +95,24 @@ function autoReturnBack(delay){
 	}, 1000);
 }
 
-function display_queue_add(token, token_position){
+function timerForImageRepresentation(delay){
+	var print_sec = delay;
+
+	hidingImageInterval = setInterval(function () {
+		$('#seconds-representation-box').html(print_sec + " seconds remain");
+		print_sec = print_sec - 1;
+
+		if (print_sec < 5){
+			$('#seconds-representation-box').css('color', 'rgb(255, 0,0)');
+		}
+
+		if (print_sec < 0){
+			returnBackImage();
+		}
+	}, 1000);
+}
+
+function displayQueueAdd(token, token_position){
 	var column;
 	var tag = document.createElement("div");
 	var text = document.createTextNode(token);
@@ -117,7 +137,7 @@ function display_queue_add(token, token_position){
 	}
 }
 
-function  display_queue_remove(){
+function  displayQueueRemove(){
 	var tag;
 	var first_column = document.getElementById("first-column");
 	var second_column = document.getElementById("second-column");
@@ -144,6 +164,17 @@ function  display_queue_remove(){
 	}
 }
 
+function returnBackImage() {
+	$('#check-token').css('display', 'flex');
+	$('#image-toolbar').css('display', 'none');
+	$('#image').attr('src', "").css('display', 'none');
+	clearInterval(hidingImageInterval);
+	$('#seconds-representation-box').html("60 seconds remain").css('color', '#333');
+	$.get(
+		'/start-delay'
+	);
+
+}
 
 $(document).ready(function () {
 	$('#get-token-part').on('submit', function (event) {
@@ -157,7 +188,7 @@ $(document).ready(function () {
 				$('#queue-tablet-part').hide();
 				$('#token').text(data.token);
 				$('#show-token-content').css('display', 'flex');
-				autoReturnBack(14);
+				autoTokenPartReclaim(14);
 			} else {
 				alert("You were banned");
 			}
@@ -173,12 +204,15 @@ $(document).ready(function () {
 			dataType: 'json',
 			beforeSend: function() {
 				$('.loader-wrapper').css('display', 'block');
-				$('#image').attr('src', "").css('display', 'none');
+				$('#check-token').css('display', 'none');
 				},
 		}).done(function (data) {
 			if (data.status === 'success') {
 				$('#image').attr('src', data.image_url).css('display', 'flex');
 				$('.loader-wrapper').css('display', 'none');
+				$('#image-toolbar').css('display', 'flex');
+				$('#download-button-box a').attr('href', data.image_url);
+				timerForImageRepresentation(60);
 			}else if (data.status === 'wrong_turn'){
 				$('.loader-wrapper').css('display', 'none');
 				alert("It's not your turn");
