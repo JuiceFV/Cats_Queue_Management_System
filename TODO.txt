@@ -1,7 +1,3 @@
-Set timer for an image representation
-
-Add Image download
-
 Cover by tests
  Come up with tests
 
@@ -10,3 +6,4 @@ Optimize
 Fix comments
 
 Add readme.md
+
