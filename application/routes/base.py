@@ -2,7 +2,7 @@
 
 """
 from aiohttp import web
-from application.views import frontend
+from application.views import frontend, go_on_with_delay
 from application.server_sent_events import sse_updates
 
 
@@ -12,7 +12,8 @@ def setup_routes(app):
                         web.get('/', frontend.Index.get, name='index'),
                         web.get('/get-token', frontend.Token.get, name='token-getter'),
                         web.post('/post-token', frontend.Token.post, name='image-getter'),
-                        web.get('/update', sse_updates)
+                        web.get('/update', sse_updates, name='sse'),
+                        web.get('/start-delay', go_on_with_delay)
                     ]
                    )
 
