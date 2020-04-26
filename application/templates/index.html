@@ -28,14 +28,29 @@
 				<div class="part-title">
 					<h2>Get Your Kitty</h2>
 				</div>
-				<form id="check-token" method="post" action="/post-token">
-					<div id="token-input-field">
-						<input type="text" placeholder="Your Token" name="token-field" pattern="[A-Z]{1}[\d]{2}">
+				<div style="width: 90%;">
+					<form id="check-token" method="post" action="/post-token">
+						<div id="token-input-field">
+							<input type="text" placeholder="Your Token" name="token-field" pattern="[A-Z]{1}[\d]{2}">
+						</div>
+						<div id="token-check-button">
+							<input type="submit" value="Get Image">
+						</div>
+					</form>
+					<div id="image-toolbar">
+						<div class="return-button-box" style="margin-left: 0px;" onclick="returnBackImage()">
+							<img src="{{static('icons/back-arrow.png')}}">
+						</div>
+						<div id="seconds-representation-box">
+							60 seconds remain
+						</div>
+						<div id="download-button-box">
+							<a href="" download="Your kitty" target="_blank">
+								<img src="{{static('icons/download.png')}}">
+							</a>
+						</div>
 					</div>
-					<div id="token-check-button">
-						<input type="submit" value="Get Image">
-					</div>
-				</form>
+				</div>
 				<div id="image-box">
 					<img id="image" src="">
 					<div class="loader-wrapper">
@@ -117,7 +132,7 @@
 				</div>
 				<div id="show-token-content" style="display: none;">
 					<div id="return-button">
-						<div id="return-button-box" onclick="returnBack();">
+						<div class="return-button-box" onclick="returnBack();">
 							<img src="{{static('icons/back-arrow.png')}}">
 						</div>
 					</div>
