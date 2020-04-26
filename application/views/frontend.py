@@ -26,7 +26,21 @@ class Index(web.View):
         token_list = await base.get_all_tokens(self.app)
         self.app['sse_requests']['redundant_tokens_vis'][0] = True
 
+        # If the web page has been refreshed until '/start-delay' called
+        await go_on_with_delay(self)
+
         return {'token_list': token_list}
+
+
+async def go_on_with_delay(request):
+    # Start the timer for the next token
+    # If user used his/her/its token until the out of the time
+    # I want to close the task of the time counting
+    # Therefore I am using the function of creating the task placed at
+    # ../application/concurrency/taskconfigurator.py
+    task = make_task(start_delete_delay, request.app, 60)
+    asyncio.gather(task)
+    return web.Response(status=200)
 
 
 class Token(web.View):
@@ -69,15 +83,6 @@ class Token(web.View):
                     # If the token is first then we shall to prepare it for the reuse.
                     # The prepare_used_token() is placed at ../application/QMS/tokengenerator.py
                     self.app['new_token'].prepare_used_token(post_data['token-field'])
-
-                    # Start the timer for the next token
-                    # If user used his/her/its token until the out of the time
-                    # I want to close the task of the time counting
-                    # Therefore I using the function of creating the task placed at
-                    # ../application/concurrency/taskconfigurator.py
-                    if not await base.db_empty(self.app):
-                        task = make_task(start_delete_delay, self.app, 60)
-                        asyncio.gather(task)
 
                     if self.app['sse_requests']['redundant_tokens_vis'][1]:
                         self.app['sse_requests']['redundant_tokens_vis'][1].pop(0)
