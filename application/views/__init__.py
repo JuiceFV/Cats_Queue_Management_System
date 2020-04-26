@@ -1,4 +1,4 @@
-from .frontend import Index, Token
+from .frontend import Index, Token, go_on_with_delay
 
 
-__all__ = ('Index', 'Token',)
+__all__ = ('Index', 'Token', 'go_on_with_delay')
