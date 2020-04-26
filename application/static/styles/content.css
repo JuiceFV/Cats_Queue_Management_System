@@ -36,10 +36,9 @@
 /*==================LEFT PART (IMAGE PART)========================*/
 
 /*
-
+display: flex
 */
 #check-token{
-	width: 90%;
 	display: flex;
 	justify-content: space-between;
 	margin-top: 10px;
@@ -271,7 +270,7 @@
 	justify-content: center;
 }
 
-#return-button-box{
+.return-button-box{
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -283,7 +282,7 @@
 	background-color: transparent;
 }
 
-#return-button-box:hover{
+.return-button-box:hover{
 	background-color: rgba(0,0,0,0.16);
 }
 
@@ -317,3 +316,35 @@
 	display: none;
 }
 
+#image-toolbar{
+	display: flex;
+	justify-content: space-between;
+}
+
+#seconds-representation-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 8px;
+	font-family: sans-serif;
+	font-weight: 600;
+}
+
+#download-button-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	margin-top: 8px;
+	border-radius: 50%;
+	background-color: transparent;
+}
+
+#download-button-box:hover{
+	background-color: rgba(0, 0, 0, 0.16);
+}
+
+#image-toolbar{
+	display: none;
+}
