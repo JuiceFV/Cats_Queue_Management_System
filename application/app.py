@@ -118,8 +118,6 @@ async def create_app(config: dict):
     # Uploading and starting a database on application starts
     app.on_startup.append(on_start)
 
-    # TODO ADD close remains tasks on_cleanup
-
     # Cleaning up a database on application shutdown.
     app.on_cleanup.append(on_shutdown)
 
