@@ -1,6 +1,4 @@
-"""
-This file contains the only function which starting a delay
-for each token.
+"""This file contains the only function which starting a delay for each token.
 """
 
 import asyncio
@@ -10,8 +8,8 @@ from sqlalchemy import select, asc, delete, text
 
 
 async def start_delete_delay(app, delay):
-    """
-    The very function which thrust a delay for each front token.
+    """The very function which thrust a delay for each front token.
+
     Key arguments:
     app -- our application.
     delay -- a delay in seconds
@@ -61,6 +59,10 @@ async def start_delete_delay(app, delay):
                         # a queue. And SSE catching and handling it by checking this variable every second.
                         app['sse_requests']['update_queue_vis_remove'] = True
 
+                        # For the accurate representation on client-side after page-refresh we need to remove first
+                        # token from the list of redundant tokens if it exists ofc.
+                        # (Brief explanation: We do this because the first token in the list sets the last token of the
+                        # fourth column in the queue representation of the web page.)
                         if app['sse_requests']['redundant_tokens_vis'][1]:
                             app['sse_requests']['redundant_tokens_vis'][1].pop(0)
 

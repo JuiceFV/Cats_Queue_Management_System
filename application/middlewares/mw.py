@@ -1,3 +1,8 @@
+"""Defined some middlewears for my app.
+Yep, I am sufficiently sloth to make them in my own, so I just copied them from official documentation.
+https://docs.aiohttp.org/en/stable/web_advanced.html#middlewares
+"""
+
 import aiohttp_jinja2
 from aiohttp import web
 

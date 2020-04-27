@@ -9,8 +9,8 @@ _tasks = []
 
 
 def make_task(coroutine_function, *coroutine_args):
-    """
-    This function creates and append a task into the tasks-list.
+    """This function creates and append a task into the tasks-list.
+
     Key Arguments:
     coroutine_function -- an async-function which needed to be under surveillance.
     *coroutine_args -- arguments for the function above.
@@ -29,8 +29,7 @@ def make_task(coroutine_function, *coroutine_args):
 
 
 def get_previous_task():
-    """
-    This function returns first task in the queue.
+    """This function returns first task in the queue.
     """
     return _tasks[0] if len(_tasks) != 0 else None
 

@@ -1,5 +1,4 @@
-"""
-
+"""In this file locates the basic functions for database interactions.
 """
 import asyncpgsa
 from .db import tokens
@@ -9,8 +8,8 @@ from sqlalchemy import (
 
 
 async def db_empty(app):
-    """
-    Check for db emptiness.
+    """Check for db emptiness.
+
     Key arguments:
     app -- our application
 
@@ -22,8 +21,7 @@ async def db_empty(app):
 
 
 async def on_start(app):
-    """
-    When the application starts it will configure the database with
+    """When the application starts it will configure the database with
     options from the 'database_config' which are places at config.yaml.
 
     Key arguments:
@@ -34,7 +32,15 @@ async def on_start(app):
 
 
 async def insert_token_into_db(app, token):
+    """This function responsible for token's insertion into database.
+
+    Key arguments:
+    app -- our application
+    token -- the token which should be inserted
+    """
     async with app['db'].acquire() as conn:
+
+        # The example: INSERT INTO tokens (token) values ('A00');
         query = insert(tokens).values(
             token=token
         )
@@ -106,8 +112,8 @@ async def delete_token_from_db(app, token):
 
 
 async def get_all_tokens(app):
-    """
-    This function created for a js displaying function
+    """This function created for a js displaying function.
+    We're calling this function when sending a request to auto-update a queue.
 
     Keywords arguments:
     app -- the application
@@ -121,10 +127,12 @@ async def get_all_tokens(app):
 
 
 async def get_num_of_tokens(app):
-    """
-    This function returns number of tokens in db
-    It uses only once in the Token.get for a position
-    retrieving.
+    """This function returns number of tokens in database
+    It uses only once in the Token.get for a position retrieving.
+    We're calling this function when sending a request to append a token.
+    Therefore we need to get a position of appended token, and because of we use a queue-resembling data structure
+    the position is the number of tokens in database.
+
 
     Keywords arguments:
     app -- the application
@@ -138,8 +146,7 @@ async def get_num_of_tokens(app):
 
 
 async def on_shutdown(app):
-    """
-    When the application ends its work it will close the connection with database
+    """When the application ends its work it will close the connection with database
 
     Key arguments:
     app -- our application

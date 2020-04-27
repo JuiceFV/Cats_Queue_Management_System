@@ -1,6 +1,4 @@
-"""
-
-
+"""Here represented the class responsible for token interaction
 """
 
 
@@ -62,9 +60,6 @@ class TokenGenerator:
 
         Keywords arguments:
         token -- it's a three-character string which is a token used before and now available for reuse.
-
-        Append the token as a list into the another list "ready to present"
-
         """
         self.tokens_ready_to_present.append(list(token))
         self.tokens_ready_to_present.sort()

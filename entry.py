@@ -1,24 +1,6 @@
-"""The "entry.py" contains the basic functions which runs the configured application.
-
-Import packages:
-ayncio -- standard package for the async programming since python3.4
-argparse -- package for the arguments parsing from the cmd/terminal <pip install pycparser>
-aiohttp -- package for the async web-programming <pip install aiohttp>
-application.create_app -- the create_app() function is located at application/app.py. It's creates the configured app.
-application.settings.load_config -- the load_config() function is handles the configuration files.
-
-Exceptions:
-ImportError -- Tries to import the uvloop. We're make an effort due to uvloop works only with Unix.
-
-Sets the parser of the arguments:
-1) --host -- Host to listen
-2) --port -- Port to accept connection
-3) --config -- Path to configuration file
-
-Creates the application with set routes.
-
-Runs the application.
-
+"""The 'entry.py' is the entry point of the application.
+In this file we declare the application and start its work.
+Also, there are defined flags and options for the application.
 """
 
 
@@ -29,7 +11,8 @@ from application import create_app
 from application.settings import load_config
 
 # Makes an effort to import the uvloop for the performance augment.
-# Windows doesn't maintain the uvloop, so far. Therefore we throws the  Exception.
+# WindowsOS doesn't maintain the uvloop, so far. Therefore we throws the  Exception.
+# Uvloop's GitHub: https://github.com/MagicStack/uvloop
 try:
     import uvloop
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
@@ -37,13 +20,17 @@ except ImportError:
     print("Uvloop library doesn't available.")
 
 
-# Sets the argument parser up
-# 1) --host HOST which will be listened
-# 2) --port PORT to accept connection
-# 3) --config YOUR_CFG.yaml pass your own config for this project. The default settings are places at config.yaml
-# 4) --test makes the run-type = test
-# 5) --debug makes the run-type = debug
-# 6) --release makes the run-type = release
+# Sets the argument parser up. For these purposes we're using 'argparse'-package (installation: pip install argparse)
+# 1) --host HOST: the host which will be listened, the default host is '0.0.0.0'. (Ex: python entry.py --host 127.0.0.1)
+# 2) --port PORT: the port to accept a connection, the default port is '8080'. (Ex: python entry.py --port 5432)
+# 3) --config YOUR_CFG.yaml: pass your own config for the application. The default settings are places at config.yaml
+#      If you'd like so, you can pass your own cfg-file. (Ex: python entry.py -c my_cfg.yaml).
+#      You can use as same '--config' as '-c'.
+# 4) --test: makes the run-type = test. Generally it do nothing merely changing the path to the static files in routes.
+#      (Ex: python entry.py -t). You shouldn't pass an argument. The option 'action='store_true' makes it possible.
+# 5) --debug: makes the run-type = debug. Hmm, this flag just turning debug-logging on. That's all.
+#      (Ex: python entry.py -d). I believe you're an ingenious man therefore you grasp why does it work w/o arguments.
+# 6) --release: makes the run-type = release. Removing debugging logs. (Ex: python entry.py -d). Look up the line above.
 parser = argparse.ArgumentParser(description="Kitty Getter Project")
 parser.add_argument('--host', help="Host to listen", default='0.0.0.0')
 parser.add_argument('--port', help="Port to accept connection", default=8080)

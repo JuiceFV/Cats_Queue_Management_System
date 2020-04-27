@@ -1,10 +1,4 @@
-"""Here is placed the function which configures an application.
-
-
-
-Functions:
-create_app(config: dict) --
-
+"""Here is placed the function which configures the application.
 """
 
 
@@ -23,7 +17,7 @@ from aiohttp_session.cookie_storage import EncryptedCookieStorage
 
 
 def detecting_runtype(app):
-    """This function checks for the correct run-type.
+    """This function checks for the proper run-type.
     There are 3 possible run-types: debug/release/test
 
     Keywords arguments:
@@ -41,7 +35,7 @@ def detecting_runtype(app):
             print(f'{error}: You passed {user_input} as run-type.')
             raise
 
-    # If the we deploy the application then we turn off logging
+    # If we're deploying the application then we turn off logging
     if app['config']['run_type'] != 'release':
         logging.basicConfig(level=logging.DEBUG)
 
@@ -54,7 +48,7 @@ def setup_application_variables(app, config):
     config -- a configuration extracted form config-file
     """
 
-    # Setting configuration
+    # Setting configuration (database's config and run-type)
     app['config'] = config
 
     # Here we'ill contain the ban-list
