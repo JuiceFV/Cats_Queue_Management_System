@@ -8,20 +8,42 @@ evtSource.onerror = function(e){
 	}
 }
 
+// Variable contains:
+// 1) hidingTokenInterval - the interval for token hidding (interval means the function "setInterval")
+// 2) hidingImageInterval - the interval for token hidding (interval means the function "setInterval")
+// 3) redundant_tokens - if number of tokens in a queue is bigger than 64 then the next tokens writes over here. (For representation ofc) 
 var hidingTokenInterval;
 var hidingImageInterval;
 var redundant_tokens = [];
 
+// The crucial function in SSE
 evtSource.onmessage = function(e) {
+
+	// Data from server is fetching as "<server-event-name> <data1> <data2> <data3> ..."
 	let fetched_data = e.data.split(' ');
+
+	// First option is when a token has been removed from server this event has to be represented on a client-side.
 	if(fetched_data[0] === "update-remove")
 		displayQueueRemove();
+
+	// The second option is when a token appended on server and also it should be represented to a user
 	else if(fetched_data[0] === "update-append")
+
+		// fetched_data[1] - token
+		// fetched_data[2] - its (token's) position
 		displayQueueAdd(fetched_data[1], parseInt(fetched_data[2]));
+
+	// The last possible options is that if the web-page will has refreshed a data in redundant_tokens should be rewritten
 	else if (fetched_data[0] === "update-redtokens"){
+
+		// in purpose to skip fucking with idexes, we merely removing the "update-redtokens" from array. (Forgive me for my lang:))
 		fetched_data.shift();
+
+		// Creating variables for token' wrapping
 		let tag;
 		let text;
+
+		// Wrapping tokens and store it into the array.
 		for(let i = 0; i < fetched_data.length - 1; i++) {
 			tag = document.createElement("div");
 			text = document.createTextNode(fetched_data[i]);

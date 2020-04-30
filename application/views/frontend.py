@@ -18,7 +18,7 @@ from ..concurrency import make_task, start_delete_delay, get_previous_task
 
 class Index(web.View):
     """Class which handles index.html
-
+    The class has the only 'get' function which returns the rendered web-page.
     Basic page. Renders templates using aiohttp_jinja2.
 
     """
@@ -59,6 +59,11 @@ async def go_on_with_delay(request):
 
 
 class Token(web.View):
+    """The class responsible for tokens handling.
+    It contains 2 methods where the first one handling a token posted by an user and returns a status with
+    image (if status isn't an error).
+    And second one handling a request from a client side and returns status with token (if status isn't an error)
+    """
 
     async def post(self):
         """Token processing

@@ -1,3 +1,6 @@
+"""The init.py for 'concurrency' which contains the only permit for function's sharing.
+"""
+
 from .taskconfig import make_task, get_previous_task
 from .timer import start_delete_delay
 

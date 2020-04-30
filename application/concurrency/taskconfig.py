@@ -1,7 +1,6 @@
-"""This package/file whatever you want
-aims to help us to structure asyncio tasks.
-
+"""This package/file whatever you want aims to help us to structure asyncio tasks.
 """
+
 import asyncio
 
 # The list of asyncio tasks which needed to be canceled or modified or something else.
@@ -18,6 +17,8 @@ def make_task(coroutine_function, *coroutine_args):
     Returns created task.
     """
     async def wrapped_coroutine():
+        """This function begins a coroutine and when it's over we removing a task from the list.
+        """
         try:
             return await coroutine_function(*coroutine_args)
         finally:

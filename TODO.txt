@@ -1,9 +1,7 @@
 Cover by tests
  Come up with tests
 
-Optimize
-
-Fix comments
+Optimize	
 
 Add readme.md
 
