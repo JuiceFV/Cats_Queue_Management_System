@@ -1,4 +1,0 @@
-database_config:
-  database_uri: postgresql://user:password@localhost:5432/database
-  cfg_opt1: 'Opt1'
-  cfg_opt2: 1234

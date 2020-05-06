@@ -16,7 +16,7 @@
 database_config:
   host: localhost
   user: postgres
-  password: JPYh42JS
+  password: 12345qwerty
   port: 5432
   database: CatsQMS
 
