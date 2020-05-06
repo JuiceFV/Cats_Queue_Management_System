@@ -1,11 +1,14 @@
 // Creating a connection with server which receives messages to visually updating.
-const evtSource = new EventSource("/update");
+var evtSource = new EventSource("/update");
 
 // When a server will has shutting down it's closing a connection by receiving an error.
-evtSource.onerror = function(e){
-	if (e.eventPhase === EventSource.CLOSED){
+evtSource.onerror = function (e) {
+	if (e.eventPhase === EventSource.CLOSED)
 		evtSource.close();
-	}
+}
+
+evtSource.onopen = function () {
+	console.log("Client joined");
 }
 
 // Variable contains:
@@ -16,7 +19,7 @@ var hidingTokenInterval;
 var hidingImageInterval;
 var redundant_tokens = [];
 
-// The crucial function in SSE
+// The crucial function in SSE' iteration
 evtSource.onmessage = function(e) {
 
 	// Data from server is fetching as "<server-event-name> <data1> <data2> <data3> ..."
