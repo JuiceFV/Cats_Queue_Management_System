@@ -108,7 +108,7 @@ class Token(web.View):
 
                     # For the accurate representation on client-side after page-refresh we need to remove first token
                     # from the list of redundant tokens if it exists ofc.
-                    # (Brief explanation: We do this because the first token in the list sets the last token of the
+                    # (Brief explanation: We do this because the first token in the list sets as the last token of the
                     # fourth column in the queue representation of the web page.)
                     if self.app['sse_requests']['redundant_tokens_vis'][1]:
                         self.app['sse_requests']['redundant_tokens_vis'][1].pop(0)
@@ -182,8 +182,8 @@ class Token(web.View):
             if token_position > 64:
                 self.app['sse_requests']['redundant_tokens_vis'][1].append(token)
 
-            # Send request to sse in purpose to append a token in representation queue. Besides we throwing a token
-            # and its position.
+            # Send request to sse in purpose to append a token in representation queue.
+            # Besides we throwing a token and its position.
             self.app['sse_requests']['update_queue_vis_append'] = [True, token, token_position]
 
             return web.json_response({'status': 'ok', 'token': token})
