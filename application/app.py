@@ -66,6 +66,8 @@ def setup_application_variables(app, config):
         'redundant_tokens_vis': [False, []]
     }
 
+    app['sessions_list'] = []
+
 
 async def create_app(config: dict):
     """Creates an application with routes and returns it.
@@ -91,7 +93,7 @@ async def create_app(config: dict):
     fernet_key = fernet.Fernet.generate_key()
     secrete_key = base64.urlsafe_b64decode(fernet_key)
 
-    # Setting up this key for the application
+    # Setting up the EncryptedCookieStorage
     setup(app, EncryptedCookieStorage(secrete_key))
 
     # Setting template loader
