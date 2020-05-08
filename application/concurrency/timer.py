@@ -56,7 +56,7 @@ async def start_delete_delay(app, delay):
                         await conn.fetchrow(query)
 
                         # Setting the flag to on, it means that we updating
-                        # a queue. And SSE catching and handling it by checking this variable every second.
+                        # a queue. And SSE catching and handling it by checking this variable every 10 ms.
                         app['sse_requests']['update_queue_vis_remove'] = True
 
                         # For the accurate representation on client-side after page-refresh we need to remove first
