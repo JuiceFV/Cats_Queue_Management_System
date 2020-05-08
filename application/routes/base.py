@@ -14,13 +14,7 @@ def setup_routes(app):
                         web.get('/get-token', frontend.Token.get, name='token-getter'),
                         web.post('/post-token', frontend.Token.post, name='image-getter'),
                         web.get('/update', sse_updates, name='sse'),
-                        web.get('/start-delay', go_on_with_delay, name="continue_delay")
+                        web.get('/start-delay', go_on_with_delay, name="continue_delay"),
+                        web.static('/static', 'application/static', name='static', show_index=True)
                     ]
                    )
-
-    # In the configuration file we set the 'run_type' as either test nor debug nor release.
-    # I did it because of tests destination.
-    if app['config']['run_type'] == 'test':
-        app.router.add_static('/static', '../application/static', name='static', show_index=True)
-    else:
-        app.router.add_static('/static', 'application/static', name='static', show_index=True)
