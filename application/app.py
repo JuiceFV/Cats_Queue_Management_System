@@ -36,7 +36,7 @@ def detecting_runtype(app):
             raise
 
     # If we're deploying the application then we turn off logging
-    if app['config']['run_type'] != 'release':
+    if app['config']['run_type'] == 'debug':
         logging.basicConfig(level=logging.DEBUG)
 
 
