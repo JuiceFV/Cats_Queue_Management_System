@@ -8,12 +8,12 @@ from sqlalchemy import (
 
 
 async def db_empty(app):
-    """Check for db emptiness.
+    """Check for database emptiness.
 
     Key arguments:
     app -- our application
 
-    returns True/False depending on db emptiness
+    returns True/False depending on database emptiness.
     """
     async with app['db'].acquire() as conn:
         query = text("SELECT True FROM tokens LIMIT(1)")
@@ -40,7 +40,7 @@ async def insert_token_into_db(app, token):
     """
     async with app['db'].acquire() as conn:
 
-        # The example: INSERT INTO tokens (token) values ('A00');
+        # SQL equivalent: 'INSERT INTO tokens (token) values ('A00')'
         query = insert(tokens).values(
             token=token
         )
@@ -70,8 +70,7 @@ async def delete_token_from_db(app, token):
     However I used another way. I don't want to use big query like that, therefore I decide to split these queries
     within python script. May be it makes some influence onto performance due to several queries but difference is few.
 
-    Returns whether the token is available and the token-self
-
+    Returns whether the token is available and the token-self.
     """
     async with app['db'].acquire() as conn:
 
@@ -121,6 +120,9 @@ async def get_all_tokens(app):
     returns all tokens in database
     """
     async with app['db'].acquire() as conn:
+
+        # SQL equivalent: 'SELECT token FROM tokens'.
+        # If database is empty then the query returns empty list ('[]')
         query = select([tokens.c.token])
         result = await conn.fetch(query)
         return result
@@ -153,9 +155,18 @@ async def on_shutdown(app):
     """
     async with app['db'].acquire() as conn:
         query = delete(tokens)
+
+        # frees db
         await conn.fetchrow(query)
+
+        # Sets id counting from very beginning
         await conn.execute("ALTER SEQUENCE tokens_id_seq RESTART ")
     await app['db'].close()
+
+    # It's important step for the tests
+    if app['config']['run_type'] == 'test':
+        with open(app['ban_list'][0].name, 'w') as file:
+            file.write('')
     app['ban_list'][0].close()
 
 
