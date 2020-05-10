@@ -6,5 +6,8 @@ import requests
 def get_image_url():
     """Getting an image' url. using the request-package.
     """
-    response = requests.get('https://api.thecatapi.com/v1/images/search')
+    try:
+        response = requests.get('https://api.thecatapi.com/v1/images/search')
+    except requests.RequestException:
+        print("Exception occurred while getting an Image!")
     return response.json()[0]['url']
