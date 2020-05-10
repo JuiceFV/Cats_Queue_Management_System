@@ -1,3 +1,5 @@
+"""Tests responsible for 'load_config function which configure an application.
+"""
 import unittest
 import __path_changing
 import os
