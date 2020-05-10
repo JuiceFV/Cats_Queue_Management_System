@@ -32,6 +32,6 @@ setup(
     zip_safe=True,
     entry_points={
         'console_scripts':
-            ['start_app = entry.py']
+            ['start_app = ..entry.py']
     }
 )
