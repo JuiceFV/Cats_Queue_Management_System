@@ -8,6 +8,7 @@ import logging
 import aiohttp_jinja2
 from aiohttp import web
 from cryptography import fernet
+from pathlib import Path
 from .QMS import TokenGenerator
 from .routes import setup_routes
 from aiohttp_session import setup
@@ -54,7 +55,8 @@ def setup_application_variables(app, config):
     # Here we'ill contain the ban-list
     # index==0 - the file where ip' are placed constantly
     # index==1 - the dictionary where ip' are placed temporary (Because, Dict-Find complexity is O(1))
-    app['ban_list'] = [open(".ip_banlist", 'r')]
+    path_to_file = Path(__file__).parent.parent / ".ip_banlist"
+    app['ban_list'] = [open(path_to_file, 'r')]
     app['ban_list'].append({ip.strip(): 'banned' for ip in app['ban_list'][0]})
 
     # A token, specifically novel generated
