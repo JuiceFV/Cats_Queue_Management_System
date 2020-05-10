@@ -1,11 +1,8 @@
 Edit image loading on an error
 
-WS redundant tokens and send exc
-
-Cover by tests
- Come up with tests
-
 Optimize	
 
 Add readme.md
+
+Error with closed tasks in 'start_delete_delay'
 
