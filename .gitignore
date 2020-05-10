@@ -1,5 +1,4 @@
-Pipfile
-Pipfile.lock
 .idea
 env
 __pycache__
+.vscode

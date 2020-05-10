@@ -1,4 +1,6 @@
-from .frontend import Index, Token
+"""The init.py for 'views' which contains the only permit for function's sharing.
+"""
+from .frontend import Index, Token, go_on_with_delay
 
-
-__all__ = ('Index', 'Token',)
+# Giving permit for these functions/classes
+__all__ = ('Index', 'Token', 'go_on_with_delay')

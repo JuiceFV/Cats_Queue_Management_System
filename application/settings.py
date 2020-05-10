@@ -1,12 +1,4 @@
-"""In this file you can find the configuration processing function.
-
-Import packages:
-pathlib.Path -- package for the ease path definition
-yaml -- package for the yaml conversion from the config.yaml
-
-Functions:
-load_config(cfg_file) --
-
+"""In this file you can find the configuration-processing function.
 """
 
 
@@ -18,14 +10,15 @@ import yaml
 __all__ = ('load_config',)
 
 
-def load_config(cfg_file=None):
-    """This function handle and upload the configuration into the application.
+def load_config(cfg_file=None, test=None, debug=None, release=None):
+    """This function handle and upload/setup the configuration into the application.
 
     Keyword arguments:
     cfg_file -- file which handling.
+    test -- the sign if test mode (run-type) is on
+    debug -- the sign if debug mode (run-type) is on
+    release -- the sign if release mode (run-type) is on
 
-    Looking for the default configuration file in the "application" - directory.
-    Upload it into the config. Further it will be uploaded into the application.
     Returns unpacked config.
 
     """
@@ -40,8 +33,17 @@ def load_config(cfg_file=None):
     if cfg_file:
         cfg_dict = yaml.safe_load(cfg_file)
 
-    # if dict doesn't empty then updated the config.
+    # if dict doesn't empty then update the config.
     if cfg_dict:
         config.update(**cfg_dict)
+
+    # There are 3 possible run-type options
+    # If they were passed as an argument therefore we setting them up.
+    if test:
+        config['run_type'] = 'test'
+    elif debug:
+        config['run_type'] = 'debug'
+    elif release:
+        config['run_type'] = 'release'
 
     return config

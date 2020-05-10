@@ -36,10 +36,9 @@
 /*==================LEFT PART (IMAGE PART)========================*/
 
 /*
-
+display: flex
 */
 #check-token{
-	width: 90%;
 	display: flex;
 	justify-content: space-between;
 	margin-top: 10px;
@@ -215,6 +214,13 @@
 	margin: 0;
 	padding: 0;
 	flex: 1 1 auto;
+	font-size: 16px;
+    font-weight: 800;
+	border-left: 2px solid lightgray;
+}
+
+#forth-column{
+	border-right: 2px solid lightgray;
 }
 
 #show-token-content{
@@ -233,6 +239,7 @@
 	font-weight: 600;
 	color: #333;
 	flex: 1 1 auto;
+	flex-direction: column;
 }
 
 /*
@@ -263,7 +270,7 @@
 	justify-content: center;
 }
 
-#return-button-box{
+.return-button-box{
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -275,21 +282,69 @@
 	background-color: transparent;
 }
 
-#return-button-box:hover{
+.return-button-box:hover{
 	background-color: rgba(0,0,0,0.16);
 }
 
 #image-box{
-	display: flex;
 	width: 100%;
 	height: 100%;
 	align-items: center;
 	justify-content: center;
 	border-radius: 8px;
+	display: flex;
 }
 
-#image{
-	width: 90%;
-	height: 90%;
+#image {
+	max-width: 90%;
+	max-height: 90%;
+	width: 100%;
+	height: auto;
 	border-radius: 8px;
+	display: none;
+}
+
+
+.token-field{
+	height: 6.25%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.loader-wrapper{
+	display: none;
+}
+
+#image-toolbar{
+	display: flex;
+	justify-content: space-between;
+}
+
+#seconds-representation-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 8px;
+	font-family: sans-serif;
+	font-weight: 600;
+}
+
+#download-button-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	margin-top: 8px;
+	border-radius: 50%;
+	background-color: transparent;
+}
+
+#download-button-box:hover{
+	background-color: rgba(0, 0, 0, 0.16);
+}
+
+#image-toolbar{
+	display: none;
 }

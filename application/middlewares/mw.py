@@ -1,23 +1,38 @@
+"""Defined some middlewears for my app.
+Yep, I am sufficiently sloth to make them in my own, so I just copied them from official documentation.
+https://docs.aiohttp.org/en/stable/web_advanced.html#middlewares
+"""
+
 import aiohttp_jinja2
 from aiohttp import web
 
 
 async def handle_404(request):
+    """ 404-Error handling
+    """
     return aiohttp_jinja2.render_template('404_error.html', request, {})
 
 
 async def handle_500(request):
+    """ 500-Error handling
+    """
     return aiohttp_jinja2.render_template('500_error.html', request, {})
 
 
 async def handle_400(request):
+    """ 400-Error handling
+    """
     return aiohttp_jinja2.render_template('400_error.html', request, {})
 
 
 def create_error_middleware(overrides):
+    """ The function for middlewares's creation
+    """
 
     @web.middleware
     async def error_middleware(request, handler):
+        """ Using this integrated-function we're handling them for an error response from server.
+        """
 
         try:
             response = await handler(request)
@@ -39,6 +54,8 @@ def create_error_middleware(overrides):
 
 
 def setup_middlewares(app):
+    """ Setting them up for our application.
+    """
     error_middleware = create_error_middleware({
         404: handle_404,
         500: handle_500,

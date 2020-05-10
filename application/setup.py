@@ -1,5 +1,4 @@
-"""
-
+"""This file contains some rules for ease build of this application.
 """
 from setuptools import setup, find_packages
 
@@ -15,9 +14,9 @@ from setuptools import setup, find_packages
 # 4) author - Author name/nickname
 # 5) author_email - Author contact e-mail.
 # 6) packages - all packages used in the project. Apparently, find packages - looking for them. More information here:
-# https://setuptools.readthedocs.io/en/latest/setuptools.html#using-find-packages
+#    https://setuptools.readthedocs.io/en/latest/setuptools.html#using-find-packages
 # 7) zip_safe - For some use cases, Python packages may be run directly from a zip file. More information here:
-# https://setuptools.readthedocs.io/en/latest/setuptools.html#setting-the-zip-safe-flag
+#    https://setuptools.readthedocs.io/en/latest/setuptools.html#setting-the-zip-safe-flag
 # 9) entry_points - sets the entry point of the whole application.
 # 9.1) console_scripts - means that you can write the 'start_app' instead of the 'python3 entry_py'
 #      and the application starts

@@ -1,6 +1,11 @@
+"""Tests responsible for 'load_config function which configure an application.
+"""
 import unittest
+import __path_changing
+import os
 from application.settings import load_config
-from pathlib import Path
+
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class TestSettingsCases(unittest.TestCase):
@@ -10,7 +15,6 @@ class TestSettingsCases(unittest.TestCase):
         """The first case when an user doesn't pass a configuration file as an argument.
         Therefore the configuration copies from application/config.yaml
         """
-
         expected = \
             {
                 'database_config':
@@ -87,12 +91,6 @@ class TestSettingsCases(unittest.TestCase):
                 'option3_proponent': 'https://rt.pornhub.com/view_video.php?viewkey=ph5e85e9ec3f3b3'
             }
 
-        custom_cfg = Path(__file__).parent / 'custom_cfg.yaml'
-        with open(custom_cfg, 'r') as f:
+        path_to_custom_cfg = os.path.join(THIS_DIR, 'custom_cfg.yaml')
+        with open(path_to_custom_cfg, 'r') as f:
             self.assertEqual(load_config(cfg_file=f), expected)
-
-
-option1: 'Name'
-option2: 12345
-option3: 'https://rt.pornhub.com/'
-option3_proponent: 'https://rt.pornhub.com/view_video.php?viewkey=ph5e85e9ec3f3b3'

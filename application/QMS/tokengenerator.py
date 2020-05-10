@@ -1,6 +1,4 @@
-"""
-
-
+"""Here represented the class responsible for token interaction
 """
 
 
@@ -12,6 +10,7 @@ class TokenGenerator:
     prepare_used_token -- prepares already used token for the reuse.
 
     """
+
     def __init__(self):
         """Constructor for the token-generator.
 
@@ -36,8 +35,13 @@ class TokenGenerator:
         returns the token as a string. For instance 'A00'.
 
         """
-        if len(self.tokens_ready_to_present) != 0:
-            self.token = self.tokens_ready_to_present.pop(0)
+        if self.tokens_ready_to_present:
+
+            # Due to the self.token retains the prev token
+            # we return used token like that
+            # for instance, if used token A00 then the next one
+            # will A01, however we already have one.
+            return ''.join(self.tokens_ready_to_present.pop(0))
         elif self.token is None:
             self.token = ['A', '0', '0']
         elif self.token[2] < '9':
@@ -56,21 +60,6 @@ class TokenGenerator:
 
         Keywords arguments:
         token -- it's a three-character string which is a token used before and now available for reuse.
-
-        Append the token as a list into the another list "ready to present"
-
         """
         self.tokens_ready_to_present.append(list(token))
-
-
-def is_token(anticipated_token):
-    if len(anticipated_token) == 3:
-        if anticipated_token[0].isalpha() and \
-           anticipated_token[0].isupper() and \
-           anticipated_token[1].isdigit() and \
-           anticipated_token[2].isdigit():
-            return True
-        else:
-            return False
-    else:
-        return False
+        self.tokens_ready_to_present.sort()
