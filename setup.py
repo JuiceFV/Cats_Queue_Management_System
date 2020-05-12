@@ -28,10 +28,10 @@ setup(
     description="The Queue Management System which shows kitties images according queue order.",
     author="Aleksandr Kasian",
     author_email="aleksandr.juicefv@gmail.com",
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests.*"]),
     zip_safe=True,
     entry_points={
         'console_scripts':
-            ['start_app = ..entry.py']
+            ['start_app = application.entry']
     }
 )
