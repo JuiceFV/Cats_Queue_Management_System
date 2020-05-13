@@ -24,7 +24,7 @@ def load_config(cfg_file=None, test=None, debug=None, release=None):
     """
 
     # if the file wasn't passed as argument it's looks for the default file.
-    default_file = Path(__file__).parent / 'config.yaml'
+    default_file = Path(__file__).parent.parent / 'config.yaml'
     with open(default_file, 'r') as f:
         config = yaml.safe_load(f)
 

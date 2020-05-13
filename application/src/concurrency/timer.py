@@ -1,9 +1,9 @@
-"""This file contains the only function which starting a delay for each token.
+""" This module contains the only function which starting a delay for each token.
 """
 
 import asyncio
 from .taskconfig import make_task
-from application.database import db
+from ..database import db
 from sqlalchemy import select, asc, delete, text
 
 

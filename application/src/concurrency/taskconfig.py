@@ -1,4 +1,4 @@
-"""This package/file whatever you want aims to help us to structure asyncio tasks.
+""" This package/file whatever you want aims to help us to structure asyncio tasks.
 """
 
 import asyncio
