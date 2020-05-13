@@ -2,7 +2,7 @@
 
 It contains two different classes:
 1) Index - class has the only 'get' method which handling the index-page. In the case where tokens are exists it returns
-   them as a list in purpose to represent them using JS. Also it's start a delay if the web-page refreshed within
+   them as a list in purpose to represent them using JS. Also it starts a delay if the web-page refreshed within
    image representation.
 2) Token - the basic class which responsible for the gist logic of the application. Where 'get' - returns a new token
    and 'post' - returns either an image or an error. However both of them check for a cheater.
@@ -50,9 +50,9 @@ async def go_on_with_delay(request):
     """
     # Start the timer for the next token
     # If user used his/her/its token until the out of the time
-    # I want to close the task of the time counting (closing directly in Token.post and start_delete_delay ofc).
+    # I want to close the task of the time counting (closing directly in Token.post).
     # Therefore I am using the function of creating the task placed at
-    # ../application/concurrency/taskconfigurator.py
+    # ../sources/concurrency/taskconfigurator.py
     task = make_task(start_delete_delay, request.app, 60)
     asyncio.gather(task)
     return web.Response(status=200)
@@ -75,7 +75,7 @@ class Token(web.View):
          4) Data base is empty. This status was created for my own purposes, it's 3d option indeed.
          5) Also there is a prominent options which returns an error if an user is already banned
         """
-        # A response. It represents a dictionary because I'ill translate to it json-format in JS.
+        # A response. It represents a dictionary because I'ill translate to its json-format in JS.
         response = {}
 
         # Checking if a cliet-peer in the ban-list.
@@ -88,7 +88,7 @@ class Token(web.View):
             # It returns two values:
             # 1) token_availability -- Is the token in database? (True/False)
             # 2) token_accuracy -- Does the token coincide with the first token. It receives bool except the case
-            #                      when the data base empty in this way it appears as the string ('Table is empty')
+            #                      when the database empty, in this way it appears as the string ('Table is empty')
             token_availability, token_accuracy = await base.delete_token_from_db(self.app, post_data['token-field'])
 
             # Check for the database emptiness
@@ -103,7 +103,7 @@ class Token(web.View):
                         closing_task.cancel()
 
                     # If the token is first then we shall to prepare it for the reuse.
-                    # The prepare_used_token() placed at ../application/QMS/tokengenerator.py
+                    # The prepare_used_token() placed at ../sources/QMS/tokengenerator.py
                     self.app['new_token'].prepare_used_token(post_data['token-field'])
 
                     # For the accurate representation on client-side after page-refresh we need to remove first token

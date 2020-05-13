@@ -3,10 +3,10 @@ responsible for task's making and related functions
 """
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
 import __path_changing
-from src.concurrency import start_delete_delay
-from src.concurrency.taskconfig import _tasks, make_task, get_previous_task
-from src.app import create_app
-from src.settings import load_config
+from sources.concurrency import start_delete_delay
+from sources.concurrency.taskconfig import _tasks, make_task, get_previous_task
+from sources.app import create_app
+from sources.settings import load_config
 from sqlalchemy import text
 import asyncio
 

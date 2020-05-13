@@ -1,4 +1,4 @@
-"""The init.py for 'views' which contains the only permit for function's sharing.
+"""The __init__.py for 'views' which contains the only permit for functions' sharing.
 """
 from .frontend import Index, Token, go_on_with_delay
 

@@ -2,7 +2,7 @@
 """
 import unittest
 import __path_changing
-from src.QMS import TokenGenerator
+from sources.QMS import TokenGenerator
 
 
 class TestQMS(unittest.TestCase):

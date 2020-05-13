@@ -1,4 +1,4 @@
-"""Here is placed the function which configures the application.
+"""Here is placed the functions which configure an application.
 """
 
 
@@ -36,7 +36,7 @@ def detecting_runtype(app):
             print(f'{error}: You passed {user_input} as run-type.')
             raise
 
-    # If we're deploying the application then we turn off logging
+    # If we're deploying the application then we turn logging off
     if app['config']['run_type'] == 'debug':
         logging.basicConfig(level=logging.DEBUG)
 
@@ -101,7 +101,7 @@ async def create_app(config: dict):
     # Setting template loader
     aiohttp_jinja2.setup(
         app,
-        loader=jinja2.PackageLoader('application', 'templates')
+        loader=jinja2.PackageLoader('sources', 'templates')
     )
 
     # Setting up the route for the static files.

@@ -2,11 +2,11 @@
 """
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
 import __path_changing
-from src.database import db_empty, insert_token_into_db, delete_token_from_db, get_all_tokens, get_num_of_tokens
-from src.app import create_app
-from src.settings import load_config
+from sources.database import db_empty, insert_token_into_db, delete_token_from_db, get_all_tokens, get_num_of_tokens
+from sources.app import create_app
+from sources.settings import load_config
 from sqlalchemy import text
-from src.QMS.tokengenerator import TokenGenerator
+from sources.QMS.tokengenerator import TokenGenerator
 
 
 class TestDataBase(AioHTTPTestCase):

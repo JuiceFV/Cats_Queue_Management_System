@@ -7,8 +7,8 @@ Also, there are defined flags and options for the application.
 import asyncio
 import argparse
 from aiohttp import web
-from .src import create_app
-from .src.settings import load_config
+from sources import create_app
+from sources.settings import load_config
 
 # Makes an effort to import the uvloop for the performance augment.
 # WindowsOS doesn't maintain the uvloop, so far. Therefore we throws the  Exception.

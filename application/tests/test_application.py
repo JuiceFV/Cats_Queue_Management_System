@@ -4,9 +4,9 @@ users therefore the behavior of other tests may fickle if you change their the p
 """
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
 import __path_changing
-from src.app import create_app
-from src.settings import load_config
-from src.QMS.tokengenerator import TokenGenerator
+from sources.app import create_app
+from sources.settings import load_config
+from sources.QMS.tokengenerator import TokenGenerator
 
 
 class TestApplication(AioHTTPTestCase):

@@ -2,8 +2,8 @@
 """
 import __path_changing
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
-from src.app import create_app
-from src.settings import load_config
+from sources.app import create_app
+from sources.settings import load_config
 from aiohttp import web
 
 

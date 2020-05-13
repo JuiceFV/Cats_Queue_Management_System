@@ -1,4 +1,4 @@
-"""This file contains merely the only function responsible for sse interaction.
+"""This module contains merely the only function responsible for sse interaction.
 """
 
 import asyncio
@@ -11,7 +11,7 @@ async def sse_updates(request):
     loop = request.app.loop
     async with sse_response(request) as resp:
 
-        # Listen sse each 10 ms.
+        # Listen for events each 10 ms.
         while True:
 
             # Sending request for queue' token remove when it's been removed on server.

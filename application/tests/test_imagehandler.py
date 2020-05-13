@@ -2,7 +2,7 @@
 """
 import __path_changing
 import unittest
-from src.image_processing.img_handler import get_image_url
+from sources.image_processing.img_handler import get_image_url
 
 
 class TestImageProcessing(unittest.TestCase):

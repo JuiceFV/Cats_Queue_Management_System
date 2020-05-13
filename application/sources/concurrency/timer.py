@@ -1,9 +1,9 @@
-""" This module contains the only function which starting a delay for each token.
+"""This module contains the only function which starting a delay for each token.
 """
 
 import asyncio
 from .taskconfig import make_task
-from ..database import db
+from sources.database import db
 from sqlalchemy import select, asc, delete, text
 
 
@@ -21,11 +21,11 @@ async def start_delete_delay(app, delay):
         if await conn.fetch(query):
 
             # If database is not empty then we are processing a waiting delay.
-            # First, fetching an id & related token from the first position (due to it queue) from database.
+            # First, fetching an id & related token from the first position (due to it is a queue) from database.
             query = select([db.tokens.c.id, db.tokens.c.token]).order_by(asc(db.tokens.c.id)).limit(1)
             query_result = await conn.fetchrow(query)
 
-            # Retrieving an id and token
+            # Retrieving an id and a token
             id_before_sleep, token = query_result['id'], query_result['token']
 
             # Setting a delay
@@ -37,7 +37,7 @@ async def start_delete_delay(app, delay):
             except asyncio.CancelledError:
                 pass
 
-            # Check whether a token at the first place as same as it was before
+            # Check whether a token at the first place as same as it's been before
             finally:
 
                 # If it possible but all of members picked their tokens over 60 seconds.
@@ -55,8 +55,8 @@ async def start_delete_delay(app, delay):
                         # Deleting a token
                         await conn.fetchrow(query)
 
-                        # Setting the flag to on, it means that we updating
-                        # a queue. And SSE catching and handling it by checking this variable every 10 ms.
+                        # Setting the flag to on, it means that we're updating
+                        # a queue. And SSE is catching and handling it by checking this variable every 10 ms.
                         app['sse_requests']['update_queue_vis_remove'] = True
 
                         # For the accurate representation on client-side after page-refresh we need to remove first

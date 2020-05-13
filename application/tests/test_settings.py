@@ -3,7 +3,7 @@
 import unittest
 import __path_changing
 import os
-from src.settings import load_config
+from sources.settings import load_config
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 

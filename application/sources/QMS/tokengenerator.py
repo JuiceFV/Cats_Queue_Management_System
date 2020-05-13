@@ -8,7 +8,6 @@ class TokenGenerator:
     Methods:
     generate_new_token -- generates new unique token.
     prepare_used_token -- prepares already used token for the reuse.
-
     """
 
     def __init__(self):

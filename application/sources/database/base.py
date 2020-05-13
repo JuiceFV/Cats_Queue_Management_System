@@ -1,4 +1,4 @@
-"""In this file locates the basic functions for database interactions.
+"""In this module contains the basic functions for database interactions.
 """
 import asyncpgsa
 from .db import tokens

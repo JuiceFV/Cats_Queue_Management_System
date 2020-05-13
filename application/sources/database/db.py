@@ -1,4 +1,4 @@
-"""In this file defined some settings for sqlalchemy, specifically for database.
+"""In this module defined some settings for sqlalchemy, specifically for database.
 You may familiarize with documentation https://docs.sqlalchemy.org/en/13/dialects/postgresql.html
 """
 

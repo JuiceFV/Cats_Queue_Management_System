@@ -1,4 +1,4 @@
-"""I this file places the function which retrieving an image' url from here https://api.thecatapi.com
+"""In this module places the function which retrieving an image' url from here https://api.thecatapi.com
 """
 import requests
 
