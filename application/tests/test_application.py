@@ -3,7 +3,12 @@ Do not change 3 very last tests' position. (It checks for a correct behavior wit
 users therefore the behavior of other tests may fickle if you change their the placement.)
 """
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
-import __path_changing
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
 from sources.app import create_app
 from sources.settings import load_config
 from sources.QMS.tokengenerator import TokenGenerator

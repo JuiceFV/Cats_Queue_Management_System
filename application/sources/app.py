@@ -101,7 +101,7 @@ async def create_app(config: dict):
     # Setting template loader
     aiohttp_jinja2.setup(
         app,
-        loader=jinja2.PackageLoader('sources', 'templates')
+        loader=jinja2.PackageLoader('application', 'sources/templates')
     )
 
     # Setting up the route for the static files.

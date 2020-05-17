@@ -1,7 +1,11 @@
 """Tests placed here tests database' functionality.
 """
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
-import __path_changing
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 from sources.database import db_empty, insert_token_into_db, delete_token_from_db, get_all_tokens, get_num_of_tokens
 from sources.app import create_app
 from sources.settings import load_config

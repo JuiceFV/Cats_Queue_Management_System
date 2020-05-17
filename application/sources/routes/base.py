@@ -2,8 +2,8 @@
 """
 from aiohttp import web
 from pathlib import Path
-from sources.views import frontend, go_on_with_delay
-from sources.server_sent_events import sse_updates
+from ..views import frontend, go_on_with_delay
+from ..server_sent_events import sse_updates
 
 
 def setup_routes(app):

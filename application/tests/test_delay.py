@@ -2,7 +2,11 @@
 responsible for task's making and related functions
 """
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
-import __path_changing
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 from sources.concurrency import start_delete_delay
 from sources.concurrency.taskconfig import _tasks, make_task, get_previous_task
 from sources.app import create_app

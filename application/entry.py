@@ -7,8 +7,8 @@ Also, there are defined flags and options for the application.
 import asyncio
 import argparse
 from aiohttp import web
-from sources import create_app
-from sources.settings import load_config
+from application.sources import create_app
+from application.sources.settings import load_config
 
 # Makes an effort to import the uvloop for the performance augment.
 # WindowsOS doesn't maintain the uvloop, so far. Therefore we throws the  Exception.
@@ -41,9 +41,18 @@ parser.add_argument('-r', '--release', help="The run-type sets as release", acti
 args = parser.parse_args()
 
 
-# Creates an application with already set configuration and routes.
-# The function create_app() is located at app.py
-app = create_app(config=load_config(args.config, args.test, args.debug, args.release))
+def main():
+    """The main function, which creates an application and launch it.
+    """
+    if not args.test:
+        # Creates an application with already set configuration and routes.
+        # The function create_app() is located at app.py
+        app = create_app(config=load_config(args.config, args.test, args.debug, args.release))
+        web.run_app(app, host=args.host, port=args.port)
+    else:
+        from application.tests import start_tests
+        start_tests()
+
 
 if __name__ == '__main__':
-    web.run_app(app, host=args.host, port=args.port)
+    main()

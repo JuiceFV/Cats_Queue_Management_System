@@ -1,6 +1,10 @@
 """The file contains the test which checks image handler.
 """
-import __path_changing
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 import unittest
 from sources.image_processing.img_handler import get_image_url
 

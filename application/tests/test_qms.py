@@ -1,7 +1,11 @@
 """The file contains tests which checks for correct token generation.
 """
 import unittest
-import __path_changing
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 from sources.QMS import TokenGenerator
 
 

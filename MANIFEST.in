@@ -1,0 +1,4 @@
+include application/*.yaml
+include application/.ip_banlist
+recursive-include application/sources/static *
+recursive-include application/sources/templates *

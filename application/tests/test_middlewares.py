@@ -1,6 +1,10 @@
 """The file contains tests which checks for proper middleware handling.
 """
-import __path_changing
+import sys
+import os
+
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
 from sources.app import create_app
 from sources.settings import load_config

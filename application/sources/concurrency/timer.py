@@ -3,7 +3,7 @@
 
 import asyncio
 from .taskconfig import make_task
-from sources.database import db
+from ..database import db
 from sqlalchemy import select, asc, delete, text
 
 
