@@ -241,15 +241,19 @@ $(document).ready(function () {
 			}else if (data.status === 'wrong_turn'){
 				$('.loader-wrapper').css('display', 'none');
 				alert("It's not your turn");
+				returnBackImage();
 			}else if (data.status === 'cheater'){
 				$('.loader-wrapper').css('display', 'none');
 				alert("You're cheater therefore you banned");
+				returnBackImage();
 			}else if (data.status === 'banned'){
 				$('.loader-wrapper').css('display', 'none');
 				alert("You were banned");
+				returnBackImage();
 			}else{
 				$('.loader-wrapper').css('display', 'none');
 				alert("There are no any tokens");
+				returnBackImage();
 			}
 		});
 		event.preventDefault();
