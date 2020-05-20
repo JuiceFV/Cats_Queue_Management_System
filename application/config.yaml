@@ -13,8 +13,9 @@
 # Ex: postgresql://postgres:1234@localhost:5432/CatsQMS
 # Info: https://www.postgresql.org/docs/9.3/libpq-connect.html#AEN39692
 
+# Host - localhost/db depending on how you're lunching (docker or instantly)
 database_config:
-  host: localhost
+  host: db
   user: postgres
   password: 12345qwerty
   port: 5432
