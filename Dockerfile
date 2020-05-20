@@ -8,8 +8,6 @@ WORKDIR /app
 
 COPY . /app
 
-RUN cat ./config_for_docker.yaml > ./application/config.yaml
-
 RUN pip install -r requirements.txt
 
 RUN curl -OL https://raw.githubusercontent.com/mrako/wait-for/master/wait-for && chmod +x wait-for

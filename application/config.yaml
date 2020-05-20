@@ -15,11 +15,11 @@
 
 # Host - localhost/db depending on how you're lunching (docker or instantly)
 database_config:
-  host: localhost
+  host: db
   user: postgres
   password: 12345qwerty
   port: 5432
   database: CatsQMS
 
-run_type: build
+run_type: test
 
