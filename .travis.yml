@@ -1,0 +1,9 @@
+language: python
+python:
+    - 3.8
+
+services:
+    - docker
+
+script:
+    - docker-compose up
