@@ -23,7 +23,7 @@ class TestSettingsCases(unittest.TestCase):
             {
                 'database_config':
                     {
-                        'host': 'localhost',
+                        'host': 'db',
                         'user': 'postgres',
                         'password': '12345qwerty',
                         'port': 5432,
@@ -31,7 +31,8 @@ class TestSettingsCases(unittest.TestCase):
                     },
                 'run_type': 'test'
             }
-        self.assertEqual(load_config(), expected)
+        res, _ = load_config()
+        self.assertEqual(res, expected)
 
     def test_load_config_with_run_type_debug(self):
         """The second case when an user pass the 'debug' (python entry.py -d).
@@ -42,7 +43,7 @@ class TestSettingsCases(unittest.TestCase):
             {
                 'database_config':
                     {
-                        'host': 'localhost',
+                        'host': 'db',
                         'user': 'postgres',
                         'password': '12345qwerty',
                         'port': 5432,
@@ -50,7 +51,8 @@ class TestSettingsCases(unittest.TestCase):
                     },
                 'run_type': 'debug'
             }
-        self.assertEqual(load_config(debug=True), expected)
+        res, _ = load_config(debug=True)
+        self.assertEqual(res, expected)
 
     def test_load_config_with_run_type_release(self):
         """The second case when an user pass the 'release' (python entry.py -r).
@@ -61,7 +63,7 @@ class TestSettingsCases(unittest.TestCase):
             {
                 'database_config':
                     {
-                        'host': 'localhost',
+                        'host': 'db',
                         'user': 'postgres',
                         'password': '12345qwerty',
                         'port': 5432,
@@ -69,7 +71,8 @@ class TestSettingsCases(unittest.TestCase):
                     },
                 'run_type': 'release'
             }
-        self.assertEqual(load_config(release=True), expected)
+        res, _ = load_config(release=True)
+        self.assertEqual(res, expected)
 
     def test_load_config_with_custom_file(self):
         """A new config file updates the config.yaml (doesn't rewrite).
@@ -81,7 +84,7 @@ class TestSettingsCases(unittest.TestCase):
                 # This part's been copied from config.yaml
                 'database_config':
                     {
-                        'host': 'localhost',
+                        'host': 'db',
                         'user': 'postgres',
                         'password': '12345qwerty',
                         'port': 5432,
@@ -97,4 +100,5 @@ class TestSettingsCases(unittest.TestCase):
 
         path_to_custom_cfg = os.path.join(THIS_DIR, 'custom_cfg.yaml')
         with open(path_to_custom_cfg, 'r') as f:
-            self.assertEqual(load_config(cfg_file=f), expected)
+            res, _ = load_config(cfg_file=f)
+            self.assertEqual(res, expected)

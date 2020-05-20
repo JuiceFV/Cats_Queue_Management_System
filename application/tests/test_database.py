@@ -20,7 +20,8 @@ class TestDataBase(AioHTTPTestCase):
     async def get_application(self):
         """Creates a test application.
         """
-        app = await create_app(config=load_config())
+        config, _ = load_config()
+        app = await create_app(config=config)
         return app
 
     @unittest_run_loop

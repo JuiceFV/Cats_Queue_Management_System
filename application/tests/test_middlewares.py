@@ -33,7 +33,8 @@ class TestMiddlewares(AioHTTPTestCase):
             """
             return web.HTTPBadRequest()
 
-        app = await create_app(config=load_config())
+        config, _ = load_config()
+        app = await create_app(config=config)
         app.add_routes([web.get('/400-error', req_400)])
         app.add_routes([web.get('/500-error', req_500)])
         app.add_routes([web.get('/404-error', req_404)])

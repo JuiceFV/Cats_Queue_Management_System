@@ -21,7 +21,8 @@ class TestApplication(AioHTTPTestCase):
     async def get_application(self):
         """Creates a test application.
         """
-        app = await create_app(config=load_config())
+        config, _ = load_config()
+        app = await create_app(config=config)
         return app
 
     @unittest_run_loop
@@ -50,7 +51,7 @@ class TestApplication(AioHTTPTestCase):
             {
                 'database_config':
                     {
-                        'host': 'localhost',
+                        'host': 'db',
                         'user': 'postgres',
                         'password': '12345qwerty',
                         'port': 5432,

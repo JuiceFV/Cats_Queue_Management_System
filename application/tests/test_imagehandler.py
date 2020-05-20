@@ -16,4 +16,4 @@ class TestImageProcessing(unittest.TestCase):
     def test_get_image_url(self):
         """The tests which checks """
         res = get_image_url()
-        self.assertIn(res[-4:], ['.jpg', '.gif'])
+        self.assertIn(res[-4:], ['.jpg', '.gif', '.png', '.svg'])
