@@ -35,19 +35,22 @@ parser = argparse.ArgumentParser(description="Kitty Getter Project")
 parser.add_argument('--host', help="Host to listen", default='0.0.0.0')
 parser.add_argument('--port', help="Port to accept connection", default=8080)
 parser.add_argument('-c', '--config', type=argparse.FileType('r'), help="Path to configuration file")
-parser.add_argument('-t', '--test', help="The run-type sets as test", action='store_true')
-parser.add_argument('-d', '--debug', help="The run-type sets as debug", action='store_true')
-parser.add_argument('-r', '--release', help="The run-type sets as release", action='store_true')
+parser.add_argument('--test', help="The run-type sets as test", action='store_true')
+parser.add_argument('--debug', help="The run-type sets as debug", action='store_true')
+parser.add_argument('--release', help="The run-type sets as release", action='store_true')
 args = parser.parse_args()
 
 
 def main():
     """The main function, which creates an application and launch it.
     """
-    if not args.test:
-        # Creates an application with already set configuration and routes.
-        # The function create_app() is located at app.py
-        app = create_app(config=load_config(args.config, args.test, args.debug, args.release))
+    # Creates an application with already set configuration and routes.
+    # The function create_app() is located at app.py
+    config, is_test = load_config(args.config, args.test, args.debug, args.release)
+    app = create_app(config=config)
+
+    # Depending on test-argument - start the application or tests
+    if not is_test:
         web.run_app(app, host=args.host, port=args.port)
     else:
         from application.tests import start_tests
