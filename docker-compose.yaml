@@ -14,7 +14,7 @@ services:
         build: .
         command: >
             bash -c "./wait-for db:5432 -- start_app
-            && <(curl -s https://codecov.io/bash)"
+            && bash <(curl -s https://codecov.io/bash)"
         ports:
             - "8080:8080"
         depends_on:
