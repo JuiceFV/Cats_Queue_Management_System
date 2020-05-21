@@ -16,8 +16,8 @@ RUN pip install -r requirements.txt
 
 RUN python3 setup.py develop
 
-RUN './wait-for db:5432 -- start_app'
-
 RUN chmod +x wait-for
+
+RUN './wait-for db:5432 -- start_app'
 
 RUN bash <(curl -s https://codecov.io/bash)
