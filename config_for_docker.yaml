@@ -1,0 +1,8 @@
+database_config:
+  host: db
+  user: postgres
+  password: 12345qwerty
+  port: 5432
+  database: CatsQMS
+
+run_type: test

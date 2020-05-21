@@ -1,5 +1,3 @@
-Edit image loading on an error
-
 Optimize	
 
 Add readme.md
