@@ -10,4 +10,4 @@ before_script:
     - ci_env=`bash <(curl -s https://codecov.io/env)`
 
 script:
-    - docker-compose run $ci_env application
+    - docker-compose run $ci_env test
