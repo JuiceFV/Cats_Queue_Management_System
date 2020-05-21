@@ -17,3 +17,5 @@ RUN pip install -r requirements.txt
 RUN curl -OL https://raw.githubusercontent.com/mrako/wait-for/master/wait-for && chmod +x wait-for
 
 RUN python3 setup.py develop
+
+RUN bash <(curl -s https://codecov.io/bash)
