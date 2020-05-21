@@ -10,4 +10,7 @@ before_script:
     - mkdir shared
 
 script:
-    - docker-compose run $ci_env application
+    - docker-compose run -v "$PWD/shared:/shared" application
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
