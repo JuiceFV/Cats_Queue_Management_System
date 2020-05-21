@@ -18,3 +18,5 @@ RUN pip install coverage
 
 RUN curl -OL https://raw.githubusercontent.com/mrako/wait-for/master/wait-for && chmod +x wait-for
 
+RUN python3 setup.py develop
+
