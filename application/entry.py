@@ -27,10 +27,12 @@ except ImportError:
 #      If you'd like so, you can pass your own cfg-file. (Ex: python entry.py -c my_cfg.yaml).
 #      You can use as same '--config' as '-c'.
 # 4) --test: makes the run-type = test. Generally it do nothing merely changing the path to the static files in routes.
-#      (Ex: python entry.py -t). You shouldn't pass an argument. The option 'action='store_true' makes it possible.
+#      (Ex: python entry.py --test). You shouldn't pass an argument. The option 'action='store_true' makes it possible.
 # 5) --debug: makes the run-type = debug. Hmm, this flag just turning debug-logging on. That's all.
-#      (Ex: python entry.py -d). I believe you're an ingenious man therefore you grasp why does it work w/o arguments.
-# 6) --release: makes the run-type = release. Removing debugging logs. (Ex: python entry.py -d). Look up the line above.
+#      (Ex: python entry.py -debug). I believe you're an ingenious man therefore you grasp why does it work
+#      w/o arguments.
+# 6) --release: makes the run-type = release. Removing debugging logs. (Ex: python entry.py --release).
+#      Look up the line above.
 parser = argparse.ArgumentParser(description="Kitty Getter Project")
 parser.add_argument('--host', help="Host to listen", default='0.0.0.0')
 parser.add_argument('--port', help="Port to accept connection", default=8080)

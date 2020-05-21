@@ -46,6 +46,7 @@ def load_config(cfg_file=None, test=None, debug=None, release=None):
     elif release:
         config['run_type'] = 'release'
 
+    # The case if application has to be launched in test-mode.
     is_test = False
     if config['run_type'] == 'test':
         is_test = True
