@@ -18,6 +18,6 @@ RUN curl -OL https://raw.githubusercontent.com/mrako/wait-for/master/wait-for &&
 
 RUN python3 setup.py develop
 
-RUN sh -c './wait-for db:5432 -- start_app'
+RUN sh -c ./wait-for db:5432 -- start_app
 
 RUN bash <(curl -s https://codecov.io/bash)
