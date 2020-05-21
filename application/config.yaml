@@ -15,7 +15,7 @@
 
 # Host - localhost/db depending on how you're lunching (docker or instantly)
 database_config:
-  host: localjost
+  host: localhost
   user: postgres
   password: 12345qwerty
   port: 5432
