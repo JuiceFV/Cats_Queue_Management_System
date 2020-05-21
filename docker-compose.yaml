@@ -12,6 +12,8 @@ services:
     
     application:
         build: .
+        command:
+            - sh -c './wait-for db:5432 -- start_app'
         ports:
             - "8080:8080"
         depends_on:
