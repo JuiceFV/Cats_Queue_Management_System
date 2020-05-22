@@ -29,4 +29,4 @@ before_test:
   - docker-compose
 
 test_script:
-  - cmd: docker-compose run %ci_env% test_app
+  - docker-compose run test_app
