@@ -25,5 +25,8 @@ image:
 hosts:
   localhost: 127.0.0.1
 
+before_test:
+  - set ci_env=`bash <(curl -s https://codecov.io/env)`
+
 test_script:
-  - docker-compose run $env:ci_env test_app
+  - docker-compose run %ci_env% test_app
