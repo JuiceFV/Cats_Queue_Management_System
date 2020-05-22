@@ -26,4 +26,4 @@ hosts:
   localhost: 127.0.0.1
 
 test_script:
-  - docker-compose run $ci_env test_app
+  - docker-compose run $env:ci_env test_app
