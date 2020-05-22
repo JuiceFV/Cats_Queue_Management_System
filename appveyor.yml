@@ -26,4 +26,4 @@ hosts:
   localhost: 127.0.0.1
 
 test_script:
-  - cmd: docker-compose run test_app
+  - docker-compose run test_app
