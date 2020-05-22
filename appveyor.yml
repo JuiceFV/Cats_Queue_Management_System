@@ -20,8 +20,7 @@ services:
 build: off
 
 install:
-  - cmd: set QQ="aa"
-  - cmd: set ci_env="`bash <(curl -s https://codecov.io/env)`"
+  - cmd: set ci_env="bash <(curl -s https://codecov.io/env)"
 
 image:
   - Visual Studio 2019
@@ -31,7 +30,6 @@ hosts:
 
 before_test:
   - docker --version
-  - echo %QQ%
 
 test_script:
   - cmd: docker-compose run %ci_env% test_app
