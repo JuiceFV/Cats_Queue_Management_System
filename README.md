@@ -45,7 +45,8 @@ It depends on method how you will install the application.
 The common steps for all 3 cases are:
 
 >\> git clone https://github.com/JuiceFV/Cats_Queue_Management_System.git
-\> cd Cats_Queue_Management_System
+
+>\> cd Cats_Queue_Management_System
 ### Instalation using Docker
 Launch the docker. It depends on OS.
 **Linux**
