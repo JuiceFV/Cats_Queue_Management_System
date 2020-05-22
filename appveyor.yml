@@ -15,12 +15,12 @@ skip_commits:
   message: /.*\.(png|jpg|jpeg|bmp|gif|md|txt)/      # Regex for matching commit message
 
 services:
-  - docker
+  -
 
 build: off
 
 install:
-  - cmd: set ci_env="bash <(curl -s https://codecov.io/env)"
+  - cmd: set ci_env="<(curl -s https://codecov.io/env)"
 
 image:
   - Visual Studio 2019
