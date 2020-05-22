@@ -20,7 +20,7 @@ services:
 build: off
 
 install:
-    - cmd: set ci_env=bash <(curl -s https://codecov.io/env)
+    - cmd: set ci_env=`bash <(curl -s https://codecov.io/env)`
 
 image:
   - Visual Studio 2019
