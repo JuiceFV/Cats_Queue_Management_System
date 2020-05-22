@@ -10,8 +10,6 @@ COPY . /app
 
 RUN cat ./config_for_docker.yaml > ./application/config.yaml
 
-RUN cat ./application/config.yaml
-
 RUN pip install -r requirements.txt
 
 RUN pip install coverage
