@@ -25,5 +25,8 @@ image:
 hosts:
   localhost: 127.0.0.1
 
+before_test:
+  - ps: Get-NetNat | Remove-NetNat
+
 test_script:
   - docker-compose run test_app
