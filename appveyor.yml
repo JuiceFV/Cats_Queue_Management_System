@@ -15,12 +15,12 @@ skip_commits:
   message: /.*\.(png|jpg|jpeg|bmp|gif|md|txt)/      # Regex for matching commit message
 
 services:
-  - docker
+  - docker version
 
 build: off
 
 image:
-  - Visual Studio 2019
+  - Ubuntu
 
 hosts:
   localhost: 127.0.0.1
