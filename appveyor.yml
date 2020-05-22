@@ -15,7 +15,7 @@ skip_commits:
   message: /.*\.(png|jpg|jpeg|bmp|gif|md|txt)/      # Regex for matching commit message
 
 services:
-  - docker version
+  - docker
 
 build: off
 
