@@ -19,18 +19,11 @@ services:
 
 build: off
 
-install:
-  - cmd: set ci_env="`sh <(curl -s https://codecov.io/env)`"
-
 image:
   - Visual Studio 2019
 
 hosts:
   localhost: 127.0.0.1
 
-before_test:
-  - echo %BUILD_ENVIRONMENT%
-  - docker --version
-
 test_script:
-  - cmd: docker-compose run %ci_env% test_app
+  - cmd: docker-compose run test_app
