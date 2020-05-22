@@ -20,7 +20,6 @@ services:
 build: off
 
 install:
-  - sh: bash -c "./build/conan/install.sh"
   - cmd: set ci_env="`sh <(curl -s https://codecov.io/env)`"
 
 image:
@@ -30,6 +29,7 @@ hosts:
   localhost: 127.0.0.1
 
 before_test:
+  - echo %BUILD_ENVIRONMENT%
   - docker --version
 
 test_script:
