@@ -32,4 +32,4 @@ before_test:
   - docker --version
 
 test_script:
-  - cmd: docker-compose %ci_env% run test_app
+  - cmd: docker-compose run %ci_env% test_app
