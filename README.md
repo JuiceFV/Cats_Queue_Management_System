@@ -9,9 +9,12 @@ The repository represents the most integrall and most beautiful solution of the 
 - [Cats Queue Management System](#cats-queue-management-system)
   - [Table of Contents](#table-of-contents)
   - [Full Task's Description](#full-tasks-description)
-  - [Pre-Instalation requirements](#pre-instalation-requirements)
-  - [Instalation](#instalation)
+  - [Pre-Installation requirements](#pre-installation-requirements)
+  - [Installation](#installation)
     - [Instalation using Docker](#instalation-using-docker)
+    - [Instalation using setuptools](#instalation-using-setuptools)
+    - [Installation using Pipfile](#installation-using-pipfile)
+  - [Configuration File](#configuration-file)
 
 ## Full Task's Description
 If be more accurate I translate the task from [task-description.pdf](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/task-description.pdf) over here.
@@ -35,22 +38,27 @@ to use.
 
 So, it's been the full description of the task.
 
-## Pre-Instalation requirements
+## Pre-Installation requirements
 It depends on method how you will install the application.
 * The easiest way is to use [Docker](https://www.docker.com/), therefore just install the Docker and follow [ahead](#instalation-using-docker).
 * The second option is to use setup.py. In this purpose merely install the [python 3](https://www.python.org/downloads/).
 * The third way is prettiy akin with second one, hence you also need the [python 3](https://www.python.org/downloads/).
 
-## Instalation
+## Installation
 The common steps for all 3 cases are:
 
 >\> git clone https://github.com/JuiceFV/Cats_Queue_Management_System.git
 
 >\> cd Cats_Queue_Management_System
 ### Instalation using Docker
+It's important to check configuration. If you going to use docker, I created the configuration specified for docker. There is the definition in the [Dockerfile](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/Dockerfile) which copies the configuration from [config_for_docker.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/config_for_docker.yaml) to [basic configuration file](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/config.yaml):
+```docker
+RUN cat ./config_for_docker.yaml > ./application/config.yaml
+```
+Modify [config_for_docker.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/config_for_docker.yaml) as you want so. However, if you wish to launch the application set *run_type* as **debug** or **release**. In purpose to familiarize to configuration file [follow ahead](#configuration-file).
 Launch the docker. It depends on OS.
 **Linux**
->\>sudo service docker start
+>\> sudo service docker start
 
 **Windows**
 Press on *Docker Desktop* then wait until the whale's icon become stable.
@@ -58,8 +66,39 @@ Press on *Docker Desktop* then wait until the whale's icon become stable.
 Then build the docker container using this command:
 >\> docker-compose up application
 
-I wanna sleep I will lat it tmrw
+Then, whereas the docker build will has freezed merely follow the link.
+> http:\\\localhost:8080 
 
+### Instalation using setuptools
+First, install virtual enviroment.
+>\> pip install virtualenv
 
+Then sets virtual enviroment up:
+>\> python3 -m venv env
+
+The start the enviroment up:
+**Linux**
+>\> source env/bin/activate
+
+**Windows**
+>\> cd env/Scripts
+>\> activate
+>\> cd ../..
+
+Then you should install required packages.
+>\> pip install -r requirements.txt
+
+The next step is building the app:
+**Note**: Please do not use the *python3 setup.py install*. I do not fucking aware why it doesn't work.
+>\> python3 setup.py develop
+
+As soon it finished - use the console script:
+>\> start_app -d
+
+Follow the link:
+> http:\\\localhost:8080 
+### Installation using Pipfile
+
+## Configuration File
 
 
