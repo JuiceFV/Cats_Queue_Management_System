@@ -14,7 +14,8 @@ The repository represents the most integrall and most beautiful solution of the 
     - [Instalation using Docker](#instalation-using-docker)
     - [Instalation using setuptools](#instalation-using-setuptools)
     - [Installation using Pipfile](#installation-using-pipfile)
-  - [Configuration File](#configuration-file)
+  - [Advanced configuration](#advanced-configuration)
+    - [Configuration File](#configuration-file)
 
 ## Full Task's Description
 If be more accurate I translate the task from [task-description.pdf](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/task-description.pdf) over here.
@@ -41,8 +42,8 @@ So, it's been the full description of the task.
 ## Pre-Installation requirements
 It depends on method how you will install the application.
 * The easiest way is to use [Docker](https://www.docker.com/), therefore just install the Docker and follow [ahead](#instalation-using-docker).
-* The second option is to use setup.py. In this purpose merely install the [python 3](https://www.python.org/downloads/).
-* The third way is prettiy akin with second one, hence you also need the [python 3](https://www.python.org/downloads/).
+* The second option is to use setup.py. In this purpose merely install the [python 3](https://www.python.org/downloads/). Also we shall to have [PostgreSQL](https://www.postgresql.org/) database.
+* The third way is prettiy akin with second one, hence you also need the [python 3](https://www.python.org/downloads/) and [PostgreSQL](https://www.postgresql.org/).
 
 ## Installation
 The common steps for all 3 cases are:
@@ -92,13 +93,45 @@ The next step is building the app:
 **Note**: Please do not use the *python3 setup.py install*. I do not fucking aware why it doesn't work.
 >\> python3 setup.py develop
 
-As soon it finished - use the console script:
->\> start_app -d
+Before the application starting you should create the database. For this use the command below:
+>\> createdb -U postgres CatsQMS
+
+Then initializing the [table](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/database/init.sql)
+>\> psql -U postgres -d CatsQMS -f application/sources/database/init.sql
+
+**Note:** if you don't want to modify the [config.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/config.yaml) - set the password of PostgreSQL as **12345qwerty**, because this one I used.
+
+Launch the application:
+1. --test - test-mode, launches the tests for the application.
+2. --debug - debug-mode, launches the application with actions's logging.
+3. --release - release-mode, does the same as the debug-mode but without logging.
+>\> start_app --debug
 
 Follow the link:
 > http:\\\localhost:8080 
+
 ### Installation using Pipfile
+The installation is pretty similar with previous one.
+First:
+>\> pip install pipenv
 
-## Configuration File
+Then instead of `python -m venv env` just seize:
+>\> pipenv shell
+
+As soon as you type it, virtual enviroment will already activated. 
+Then install required packages:
+>\> pipenv install --dev
+
+Before the application starting you should create the database. For this purpose use the command below:
+>\> createdb -U postgres CatsQMS
+
+Then initializing the [table](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/database/init.sql)
+>\> psql -U postgres -d CatsQMS -f application/sources/database/init.sql
+
+Then start the application:
+>\> python3 application/entry.py --debug
+## Advanced configuration
+### Configuration File
 
 
+FORGOT POSTGRESQL
