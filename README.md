@@ -18,6 +18,7 @@ The repository represents the most integrall and most beautiful solution of the 
     - [Configuration File](#configuration-file)
     - [Cmd/Terminal parameters](#cmdterminal-parameters)
   - [Usage](#usage)
+  - [Demeanor description](#demeanor-description)
   - [Issues I haven't solved, yet](#issues-i-havent-solved-yet)
 
 ## Full Task's Description
@@ -271,19 +272,39 @@ The example: `start_app --config <path to your custom config>`
 * *--release* - the application will have launched in the debug-mode. The example: `start_app --release`
 
 ## Usage
+The full demeanor description follows [ahead](#demeanor-description).
 Ok, let's consider that we've went through the [installation](#installation). You should see such web page.
 
-There is the only index page 
+There is the only index page you get when following the link.
 ![image](https://user-images.githubusercontent.com/35202460/82739615-789dc380-9d49-11ea-98a5-31456a4be8be.png)
 
+So, let's take apart each part.
+1. *Dark Blue* - there is the only button which returns your unique token.
+2. *Orange* - this part represents the queue. Each column able to contain for 16 tokens.
+3. *Green* - the part where you can obtain an image.
 ![image](https://user-images.githubusercontent.com/35202460/82739604-63289980-9d49-11ea-99a1-d451e0f9107b.png)
 
+When you pressed the "Get-Token" button, a token will has been representing for you only for 15 seconds. You can copy your token.
 ![image](https://user-images.githubusercontent.com/35202460/82739623-9539fb80-9d49-11ea-9f91-5e8b7ae2f041.png)
 
+Tokens's queue representing the entire tokens's queue. The behavior made by using the [SSE](https://en.wikipedia.org/wiki/Server-sent_events) ([Server Sent Events](https://en.wikipedia.org/wiki/Server-sent_events)). As I said earlier each column holds only 16 tokens, if the position of a token is higher than 64, therefore this token will be represented as soon as the available place appears in the forth column.
 ![image](https://user-images.githubusercontent.com/35202460/82739636-b1d63380-9d49-11ea-978f-73d8f745bde4.png)
 
+After you typed the token and send a request. In proper case you shall get the kitty-image which will be available for 60 seconds. Also you can download this image.
 ![image](https://user-images.githubusercontent.com/35202460/82739644-cf0b0200-9d49-11ea-9102-78a6adb7a6d2.png)
 
+## Demeanor description
+Here I represent the detailed-described behavior.
+So, I would like to begin from that the service represents the [Queue Data Structure](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). The structure works according FIFO rule.
+1. If an user took a token, he should seize it within 60 seconds from the moment when it became first. When 60 seconds out - his token will automatically popped from a queue.
+2. If an user used his token and now he is interacting with an image, then the timer (60 seconds) for the new first place is freezing until the user which interacting with image finishes.
+3. If user's token is not first in a queue and you trying to get an image, then an user will obtain the alert, that it's not his turn.
+4. If an user trying to obtain an image using not existing token - then he will be banned. YES, AND I DO NOT CARE IF YOU WRONG.
+5. If database is empty and an user trying to get an image then he will get appropriate alert.
+6. If an user was banned then he can't use the service. His ip will shoved into [.ip_banlist](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/.ip_banlist)
+7. An user has the only 60 seconds to interact with image.
+
+That's all as I think so. However if I recall something then I will add it up.
 ## Issues I haven't solved, yet
 
 Fill usage explanations
