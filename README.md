@@ -89,9 +89,9 @@ The start the enviroment up:
 
 **Windows**
 >\> cd env/Scripts
->
+
 >\> activate
->
+
 >\> cd ../..
 
 Then you should install required packages.
