@@ -206,7 +206,7 @@ Let's scuttle across them:
 ## Usage
 Ok, let's consider that we've went through the [installation](#installation). You should see such web page.
 
-When 
+There is the only index page 
 ![image](https://user-images.githubusercontent.com/35202460/82739615-789dc380-9d49-11ea-98a5-31456a4be8be.png)
 
 ![image](https://user-images.githubusercontent.com/35202460/82739604-63289980-9d49-11ea-99a1-d451e0f9107b.png)
