@@ -61,6 +61,7 @@ RUN cat ./config_for_docker.yaml > ./application/config.yaml
 ```
 Modify [config_for_docker.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/config_for_docker.yaml) as you want so. However, if you wish to launch the application set *run_type* as **debug** or **release**. In purpose to familiarize to configuration file [follow ahead](#configuration-file).
 Launch the docker. It depends on OS.
+
 **Linux**
 
 >\> sudo service docker start
