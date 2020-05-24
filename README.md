@@ -55,27 +55,58 @@ The common steps for all 3 cases are:
 
 >\> cd Cats_Queue_Management_System
 ### Instalation using Docker
+
+<h4>0. Application's configuration for Docker</h4>
+
 It's important to check configuration. If you going to use docker, I created the configuration specified for docker. There is the definition in the [Dockerfile](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/Dockerfile) which copies the configuration from [config_for_docker.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/config_for_docker.yaml) to [basic configuration file](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/config.yaml):
 ```docker
 RUN cat ./config_for_docker.yaml > ./application/config.yaml
 ```
 Modify [config_for_docker.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/config_for_docker.yaml) as you want so. However, if you wish to launch the application set *run_type* as **debug** or **release**. In purpose to familiarize to configuration file [follow ahead](#configuration-file).
+
+<h4>1. Docker Launching</h4>
+
 Launch the docker. It depends on OS.
 
-**Linux**
+<details>
+<summary><b>Linux</b></summary>
+
 >\> sudo service docker start
 
-**Windows**
+</details>
+
+<details>
+<summary><b>Windows</b></summary>
 
 Press on *Docker Desktop* then wait until the whale's icon become stable.
 
+![image](https://user-images.githubusercontent.com/35202460/82753528-fb1c9680-9dce-11ea-92e9-d0df50ecbfcc.png)
+![image](https://user-images.githubusercontent.com/35202460/82753541-15ef0b00-9dcf-11ea-872a-89d3087f10b8.png)
+
+**Note:** If you're installing the repository not to the C-drive (I mean the drive where the Docker placed, in my case it is "C"), then you should add up whether your drive or the path to the cloned repository in the *Docker Dashboard -> Settings -> Resources -> File Sharing* as exploring directory.
+
+![image](https://user-images.githubusercontent.com/35202460/82753884-0c1ad700-9dd2-11ea-99a7-fb53f9ada099.png)
+![image](https://user-images.githubusercontent.com/35202460/82753940-64ea6f80-9dd2-11ea-8d1b-0c40a812ff8e.png)
+
+
+</details>
+
 Then build the docker container using this command:
 >\> docker-compose up application
+
+<h4>
+2. Harvesting the result
+</h4>
 
 Then, whereas the docker build will has freezed merely follow the link.
 > http:\\\localhost:8080 
 
 ### Instalation using setuptools
+
+<h4>
+0. Preparing virtual enviroment
+</h4>
+
 First, install virtual enviroment.
 >\> pip install virtualenv
 
@@ -84,23 +115,40 @@ Then sets virtual enviroment up:
 
 The start the enviroment up:
 
-**Linux**
+<details>
+<summary><b>Linux</b></summary>
+
 >\> source env/bin/activate
 
-**Windows**
+</details>
+
+<details>
+<summary><b>Windows</b></summary>
+
 >\> cd env/Scripts
 
 >\> activate
 
 >\> cd ../..
 
+</details>
+
 Then you should install required packages.
 >\> pip install -r requirements.txt
 
+<h4>
+1. Build the application
+</h4>
+
 The next step is building the app:
 
-**Note**: Please do not use the *python3 setup.py install*. I do not fucking aware why it doesn't work.
 >\> python3 setup.py develop
+
+**Note**: Please do not use the *python3 setup.py install*. I do not fucking aware why it doesn't work.
+
+<h4>
+2. Preparing PostgreSQL database
+</h4>
 
 Before the application starting you should create the database. For this use the command below:
 >\> createdb -U postgres CatsQMS
@@ -109,6 +157,10 @@ Then initializing the [table](https://github.com/JuiceFV/Cats_Queue_Management_S
 >\> psql -U postgres -d CatsQMS -f application/sources/database/init.sql
 
 **Note:** if you don't want to modify the [config.yaml](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/config.yaml) - set the password of PostgreSQL as **12345qwerty**, because this one I used.
+
+<h4>
+3. Start the application
+</h4>
 
 Launch the application:
 1. --test - test-mode, launches the tests for the application.
@@ -120,6 +172,11 @@ Follow the link:
 > http:\\\localhost:8080 
 
 ### Installation using Pipfile
+
+<h4>
+0. Preparing virtual enviroment
+</h4>
+
 The installation is pretty similar with previous one.
 First:
 >\> pip install pipenv
@@ -131,11 +188,20 @@ As soon as you type it, virtual enviroment will already activated.
 Then install required packages:
 >\> pipenv install --dev
 
+
+<h4>
+1. Preparing PostgreSQL database
+</h4>
+
 Before the application starting you should create the database. For this purpose use the command below:
 >\> createdb -U postgres CatsQMS
 
 Then initializing the [table](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/database/init.sql)
 >\> psql -U postgres -d CatsQMS -f application/sources/database/init.sql
+
+<h4>
+2. Start the application
+</h4>
 
 Then start the application:
 >\> python3 application/entry.py --debug
