@@ -264,7 +264,8 @@ parser.add_argument('--release', help="The run-type sets as release", action='st
 Let's scuttle across them:
 * *--host* - the host for the application, default is 0.0.0.0. The example: `start_app --host 127.0.0.1`
 * *--port* - the port to accept connection. default is 8080. The example: `start_app --port 6080`
-* *--config* - the custom config file, which adding up to the basick config file. The example: `start_app --config <path to your custom config>`
+* *--config* - the custom config file, which adding up to the basick config file. 
+The example: `start_app --config <path to your custom config>`
 * *--test* - the application will have launched in the test-mode. The example: `start_app --test`
 * *--debug* - the application will have launched in the debug-mode. The example: `start_app --debug`
 * *--release* - the application will have launched in the debug-mode. The example: `start_app --release`
