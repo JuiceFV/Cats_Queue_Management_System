@@ -63,7 +63,6 @@ Modify [config_for_docker.yaml](https://github.com/JuiceFV/Cats_Queue_Management
 Launch the docker. It depends on OS.
 
 **Linux**
-
 >\> sudo service docker start
 
 **Windows**
@@ -84,6 +83,7 @@ Then sets virtual enviroment up:
 >\> python3 -m venv env
 
 The start the enviroment up:
+
 **Linux**
 >\> source env/bin/activate
 
@@ -98,6 +98,7 @@ Then you should install required packages.
 >\> pip install -r requirements.txt
 
 The next step is building the app:
+
 **Note**: Please do not use the *python3 setup.py install*. I do not fucking aware why it doesn't work.
 >\> python3 setup.py develop
 
