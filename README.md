@@ -20,6 +20,10 @@ The repository represents the most integrall and most beautiful solution of the 
   - [Usage](#usage)
   - [Demeanor description](#demeanor-description)
   - [Issues I haven't solved, yet](#issues-i-havent-solved-yet)
+  - [Links](#links)
+  - [How To Contribute](#how-to-contribute)
+  - [License](#license)
+  - [TODO](#todo)
 
 ## Full Task's Description
 If be more accurate I translate the task from [task-description.pdf](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/task-description.pdf) over here.
@@ -372,3 +376,25 @@ However, come back to the case when nobody use their tokens. It means that the `
 
 Let's consider when we plunge cancellation (cancels prev task) in the beginning of `start_delete_delay`. Then if we cancels the Adam's task we also cancels the Eve's task and entire tree of tasks, therefore the application becomes broken. So, this is the reason why I can't cancel every task.
 
+<h4>3. The task's cancellation on shutdown</h4>
+The problem is pretty akin with previous one. I do not cancel remains tasks on server shutdown because of the previous problem. When Adam's task is cancelled, but Eve's is not (it means that Adam's still works too). And when we cancel them, error occurs when trying to cancel Adam's task.
+
+## Links
+1. [Aiohttp documentation](https://docs.aiohttp.org/en/stable/web.html)
+2. [Asyncio documentation](https://docs.python.org/3/library/asyncio.html)
+3. [Task configuration](https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view)
+4. [Site with kitty images](https://thecatapi.com/)
+5. [User's blocking](https://geekflare.com/block-unwanted-requests/)
+6. [User's blocking 2](https://www.inmotionhosting.com/support/website/block-unwanted-users-from-your-site-using-htaccess/)
+7. [PostgreSQL cheatsheet](https://www.postgresqltutorial.com/postgresql-cheat-sheet/)
+8. [Setup.py](https://klen.github.io/create-python-packages.html)
+9. [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
+10. [Pipenv](https://webdevblog.ru/pipenv-rukovodstvo-po-novomu-instrumentu-python/)
+
+## How To Contribute
+1. >\> git clone https://github.com/JuiceFV/Cats_Queue_Management_System.git -b name_for_new_branch
+2. Make changes and test
+3. Submit Pull Request with comprehensive description of changes
+## License
+
+## TODO
