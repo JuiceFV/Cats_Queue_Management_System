@@ -298,7 +298,7 @@ Here I represent the detailed-described behavior.
 So, I would like to begin from that the service represents the [Queue Data Structure](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). The structure works according FIFO rule.
 1. If an user took a token, he should seize it within 60 seconds from the moment when it became first. When 60 seconds out - his token will automatically popped from a queue.
 2. If an user used his token and now he is interacting with an image, then the timer (60 seconds) for the new first place is freezing until the user which interacting with image finishes.
-3. If user's token is not first in a queue and you trying to get an image, then an user will obtain the alert, that it's not his turn.
+3. If user's token is not first in a queue and he is trying to get an image, then the user will obtain the alert, that it's not his turn.
 4. If an user trying to obtain an image using not existing token - then he will be banned. YES, AND I DO NOT CARE IF YOU WRONG.
 5. If database is empty and an user trying to get an image then he will get appropriate alert.
 6. If an user was banned then he can't use the service. His ip will shoved into [.ip_banlist](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/.ip_banlist)
@@ -307,4 +307,61 @@ So, I would like to begin from that the service represents the [Queue Data Struc
 That's all as I think so. However if I recall something then I will add it up.
 ## Issues I haven't solved, yet
 
-Fill usage explanations
+<h4>1. Multi-clients improper representation</h4>
+
+First of all, the proper queue's representation works only when the only client exists. It means that if you open two or more browsers window with the service the representation will be broken. The clue of the problem is the [SSE](https://en.wikipedia.org/wiki/Server-sent_events), it works only with a request as it defined in the [events.py](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/server_sent_events/events.py)
+
+```python
+async def sse_updates(request):
+    """Exactly this function which responsible for sse requests.
+    """
+    loop = request.app.loop
+    async with sse_response(request) as resp:
+```
+I've tried to use the list of session's requests, however I've not found the way to detect the closed sessions (I was looking for the solution from both sides client (JS) and server (Python)). I want to note that I've found the solution which uses WebSockets, but I'd really like to use the SSE, therefore I will last the seeking. If you find a solution - make a pull-request.
+
+<h4>2. The task's cancelling</h4>
+
+First. I'd like to introduce why does this problem befall. 
+Let's consider the queue **A00** -> **A01** -> **A02** and the names **Adam** -> **Eve** -> **God**, respectivly. Let's assume that everybody is away from the system, therefore they will not have been using their tokens. According the task these tokens should be popped automatically after waiting time is out, hence as soon as 3 minutes are gone (in my version 3 min) this queue will be empty. 
+
+| user_name | token |
+|-----------|-------|
+| Adam      | A00   |
+| Eve       | A01   |
+| God       | A02   |
+The function responsible for token popping on time's out is `start_delete_delay` placed at [timer.py](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/concurrency/timer.py). And the basis of this function is the idea of token's removing one by one. There are two ways to implement this, either recursion nor infinite cycle. I did using recursion (but it doesn't matter, because any of these methods don't solve the problem). I met the problem how to cancel tasks. The [solution](https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view) has been found on Stackoverflow:
+```python
+_tasks = []
+
+
+def make_task(coroutine_function, *coroutine_args):
+    """This function creates and appends a task into the tasks-list.
+    Key Arguments:
+    coroutine_function -- an async-function which needed to be under surveillance.
+    *coroutine_args -- arguments for the function above.
+    Returns created task.
+    """
+    async def wrapped_coroutine():
+        """This function launches a coroutine and when it's over we removing a task from the list.
+        """
+        try:
+            return await coroutine_function(*coroutine_args)
+        finally:
+            if len(_tasks) != 0:
+                del _tasks[0]
+    task = asyncio.create_task(wrapped_coroutine())
+    _tasks.append(task)
+    return task
+```
+Each `start_delete_delay` wraps in `make_task`. The `make_task` lunches the `start_delete_delay` and propell it into the list `_tasks`. As soon as a task is over it outs from the list. Let's take a step away from the problem and deem what happens if an user seized his token:
+
+Firstly, the time for the novel first token is freezing and the current task is cancelling. Code over [here](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/views/frontend.py#L102)
+```python
+if closing_task := get_previous_task():
+    closing_task.cancel()
+```
+When the user finishes the interacts with an image, the frozen time starts for the new first place. Code [here](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/views/frontend.py#L46). And the cancellation works because in the `start_delete_delay` the process doesn't reach the rcursion call. I depicted it, the green line (part) handles code (this code is performed). Consequently, the red (upright)line (part) doesn't handle (this code doesn't perform).
+![image](https://user-images.githubusercontent.com/35202460/82839197-40c48680-9ed7-11ea-969c-cda2cd0a7992.png)
+
+
