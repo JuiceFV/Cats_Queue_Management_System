@@ -330,6 +330,7 @@ Let's consider the queue **A00** -> **A01** -> **A02** and the names **Adam** ->
 | Adam      | A00   |
 | Eve       | A01   |
 | God       | A02   |
+
 The function responsible for token popping on time's out is `start_delete_delay` placed at [timer.py](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/concurrency/timer.py). And the basis of this function is the idea of token's removing one by one. There are two ways to implement this, either recursion nor infinite cycle. I did using recursion (but it doesn't matter, because any of these methods don't solve the problem). I met the problem how to cancel tasks. The [solution](https://stackoverflow.com/questions/56823893/how-to-get-task-out-of-asyncio-event-loop-in-a-view) has been found on Stackoverflow:
 ```python
 _tasks = []
@@ -357,11 +358,17 @@ def make_task(coroutine_function, *coroutine_args):
 Each `start_delete_delay` wraps in `make_task`. The `make_task` lunches the `start_delete_delay` and propell it into the list `_tasks`. As soon as a task is over it outs from the list. Let's take a step away from the problem and deem what happens if an user seized his token:
 
 Firstly, the time for the novel first token is freezing and the current task is cancelling. Code over [here](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/views/frontend.py#L102)
+
 ```python
 if closing_task := get_previous_task():
     closing_task.cancel()
 ```
-When the user finishes the interacts with an image, the frozen time starts for the new first place. Code [here](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/views/frontend.py#L46). And the cancellation works because in the `start_delete_delay` the process doesn't reach the rcursion call. I depicted it, the green line (part) handles code (this code is performed). Consequently, the red (upright)line (part) doesn't handle (this code doesn't perform).
-![image](https://user-images.githubusercontent.com/35202460/82839197-40c48680-9ed7-11ea-969c-cda2cd0a7992.png)
+When the user finishes the interacts with an image, the frozen time starts for the new first place. Code [here](https://github.com/JuiceFV/Cats_Queue_Management_System/blob/master/application/sources/views/frontend.py#L46). And the cancellation works because in the `start_delete_delay` the process doesn't reach the rcursion call. I depicted it, the green line (part) handles code (this code is performed). Consequently, the red (upright)line (part) doesn't handle (this code isn't performed).
+![image](https://user-images.githubusercontent.com/35202460/82839197-40c48680-9ed7-11ea-969c-cda2cd0a7992.png). 
 
+However, come back to the case when nobody use their tokens. It means that the `start_delete_delay` is still working after red (horizontal) line surpass. And it reaches the recursion call, therefore launches another `start_delete_delay`. Let's take the portrayal of our **Adam** -> **Eve** -> **God** case:
+
+![image](https://user-images.githubusercontent.com/35202460/82840705-3e186000-9edc-11ea-9b27-059f2252cab2.png)
+
+Let's consider when we plunge cancellation (cancels prev task) in the beginning of `start_delete_delay`. Then if we cancels the Adam's task we also cancels the Eve's task and entire tree of tasks, therefore the application becomes broken. So, this is the reason why I can't cancel every task.
 
