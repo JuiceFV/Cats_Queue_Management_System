@@ -390,11 +390,18 @@ The problem is pretty akin with previous one. I do not cancel remains tasks on s
 8. [Setup.py](https://klen.github.io/create-python-packages.html)
 9. [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
 10. [Pipenv](https://webdevblog.ru/pipenv-rukovodstvo-po-novomu-instrumentu-python/)
+11. [YouTube Playlist aiohttp (Russian Lang.)](https://www.youtube.com/playlist?list=PLyUvGavKi98XpdrC92SDQGCKrGpT5ieWw)
+12. [Simple Chat using aiohttp (Russian Lang.)](https://maks.live/articles/python/prostoi-chat-na-aiohttp/#tekhnologii)
 
 ## How To Contribute
+
 1. >\> git clone https://github.com/JuiceFV/Cats_Queue_Management_System.git -b name_for_new_branch
 2. Make changes and test
 3. Submit Pull Request with comprehensive description of changes
+   
 ## License
+MIT
 
 ## TODO
+* Fix issues
+* Add appbeyor
